@@ -3,6 +3,8 @@ module.exports = {
   content: [
     "./src/*.{js,jsx}",
     "./src/**/*.{js,jsx}",
+    "./node_modules/flowbite/**/*.js",
+    "node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}"
   ],
   theme: {
     screen: {
@@ -12,8 +14,7 @@ module.exports = {
       'xl': '976px',
     },
     fontFamily: {
-      mono: ['Courier New'],
-      sans: ['Montserrat']
+      sans: ['Roboto'],
     },
     extend: {
     },
@@ -21,5 +22,6 @@ module.exports = {
   plugins: [
     require('tailwindcss'),
     require('autoprefixer'),
+    require('flowbite/plugin')
   ],
 }
