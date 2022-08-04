@@ -3,8 +3,6 @@ import { Helmet } from 'react-helmet';
 import { useForm } from 'react-hook-form';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 
-import '../index.css';
-
 // components
 import { Page } from '../App';
 
@@ -38,21 +36,23 @@ export default function Map() {
 const Cartogram = ({MapContainer, TileLayer, Marker, Popup}) => (
   <div className="col-span-6 flex flex-col rounded-lg border border-gray-200">
     <MapContainer
-      center={[51.505, -0.09]}
-      zoom={13}
+      center={[39.18186854291841, -29.303018769460255]}
+      zoom={3}
       minZoom={2}
+      maxZoom={13}
       maxBoundsViscosity={1.0}
-      maxBounds={Leaflet.latLngBounds((Leaflet.latLng(-90, -1200)), Leaflet.latLng(90, 1200))}
+      maxBounds={Leaflet.latLngBounds((Leaflet.latLng(-90, -200)), Leaflet.latLng(90, 200))}
       scrollWheelZoom={false}
+      attributionControl={false}
       style={{ width: "100%", height: "100%", borderRadius: "8px", zIndex: "0" }}
     >
       <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        url='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
       />
       <Marker position={[51.505, -0.09]}>
         <Popup>
-          Hi Jess <br /> Taco Bell?.
+          <b>Type:</b>&nbsp;Hard rain <br /> 
+          <b>Duration:</b>&nbsp;4:20:16 <br />
         </Popup>
       </Marker>
     </MapContainer>
@@ -62,7 +62,7 @@ const Cartogram = ({MapContainer, TileLayer, Marker, Popup}) => (
 const Form = ({onSubmit, handleSubmit, register}) => (
   <form onSubmit={handleSubmit(onSubmit)} className="row-span-1 col-span-1 flex flex-col p-6 gap-4">
     <span className="uppercase text-sm font-medium">Filter by</span>
-    <span className="text-sm">Length</span>
+    <span className="text-sm">Duration</span>
     <div class="form-check">
       <input {
         ...register('under-20',

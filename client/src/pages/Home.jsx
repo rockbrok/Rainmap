@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <Page>
       <Helmet>
-        <title>Rainmap | Home</title>
+        <title>Rainmap</title>
       </Helmet>
       <section className="grid grid-rows-2 grid-cols-4 grid-flow-row-dense gap-6 items-center my-8 px-8 w-full">
         <Card 
