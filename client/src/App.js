@@ -24,9 +24,9 @@ export default function App() {
 }
 
 export const Page = (props) => (
-  <div className="flex flex-col">
+  <div className="flex flex-col h-screen">
     <Navbar />
-    <section className="grow">
+    <section className="flex flex-col grow justify-center">
       {props.children}
     </section>
     <Footer />
