@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet';
+import { t } from 'i18next';
 
 // components
 import { Page } from "../App"
@@ -7,11 +8,11 @@ export default function About() {
   return (
     <Page>
       <Helmet>
-        <title>Rainmap | About</title>
+        <title>Rainmap | {t("nav.about")}</title>
       </Helmet>
       <section className="flex flex-col items-center">
       <div className="gap-6 items-center my-8 px-8 max-w-lg text-gray-700">
-        <h2 className="text-xl mb-5">About Us</h2>
+        <h2 className="text-xl mb-5">{t("about.about")}</h2>
         <p>
           Rainmap was developed by two awesome programmers who both enjoy Taco Bell and bubble tea.
         </p>

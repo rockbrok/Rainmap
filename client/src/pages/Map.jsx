@@ -2,6 +2,7 @@ import Leaflet from 'leaflet';
 import { Helmet } from 'react-helmet';
 import { useForm } from 'react-hook-form';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { t } from 'i18next';
 
 // components
 import { Page } from '../App';
@@ -13,7 +14,7 @@ export default function Map() {
     <Page>
       <Helmet>
         <title>
-          Rainmap | Map
+          Rainmap | {t("nav.map")}
         </title>
       </Helmet>
       <section className="grid grid-rows-1 grid-cols-7 grid-flow-row-dense gap-6 px-8 w-full mb-6">

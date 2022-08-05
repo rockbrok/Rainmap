@@ -1,0 +1,43 @@
+{
+  "nav": {
+    "home": "Hogar",
+    "about": "Sobre",
+    "map": "Mapa",
+    "login": "Iniciar sesión / Registrar"
+  },
+  "account": {
+    "account": "Cuenta",
+    "upload": "Subir audio",
+    "sign-out": "Desconectar"
+  },
+  "home": {
+    "card1": {
+      "title": "Beneficios de escuchar la lluvia",
+      "first": "Mejora de la calidad del sueño",
+      "second": "Disminuye la presión arterial",
+      "third": "Aumenta la confianza y la autoestima.",
+      "fourth": "Proporciona alivio del estrés."
+    },
+    "card2": {
+      "title": "Sonido de lluvia del día.",
+      "subtitle": "Aquí está el sonido de lluvia más popular para hoy."
+    },
+    "card3": "Sonidos de lluvia ligera",
+    "card4": "Sonidos de truenos"
+  },
+  "about": {
+    "about": "Sobre nosotros"
+  },
+  "login": {
+    "login": "Iniciar sesión",
+    "register": "Registrar",
+    "email": "Tu correo electrónico",
+    "password": "Tu contraseña",
+    "password-repeat": "Repita la contraseña",
+    "agree": "Estoy de acuerdo con el",
+    "terms": "términos y condiciones",
+    "create": "Crea una cuenta",
+    "sign-in": "Iniciar sesión"
+  },
+  "footer": "Hecho con"
+}

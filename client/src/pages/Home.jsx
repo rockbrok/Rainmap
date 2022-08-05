@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet';
+import { t } from 'i18next';
 
 // components
 import { Page } from '../App';
@@ -20,7 +21,7 @@ export default function Home() {
             justifyContent: "center",
             alignItems: "center"
           }}
-          title="Benefits of listening to rain"
+          title={t("home.card1.title")}
           children={<List />}
         />
         <Card 
@@ -32,7 +33,7 @@ export default function Home() {
             justifyContent: "center"
           }}
           className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
-          title="Rain sound of the day"
+          title={t("home.card2.title")}
           button={<Button />}
         />
         <Card 
@@ -47,7 +48,7 @@ export default function Home() {
             cursor: "pointer"
           }}
           hover={<div className="flex justify-center select-none items-center z-10 opacity-0 bg-gradient-to-t cursor-pointer rounded-lg from-gray-800 via-gray-800 to-opacity-30 group-hover:opacity-50 absolute top-0 left-0 h-full w-full"/>}
-          title="Light rain sounds"
+          title={t("home.card3")}
         />
         <Card 
           style={{
@@ -61,7 +62,7 @@ export default function Home() {
             cursor: "pointer"
           }}
           hover={<div className="flex justify-center items-center z-10 opacity-0 bg-gradient-to-t cursor-pointer rounded-lg from-gray-800 via-gray-800 to-opacity-30 group-hover:opacity-50 absolute top-0 left-0 h-full w-full"/>}
-          title="Thunder sounds"
+          title={t("home.card4")}
         />
       </section>
     </Page>
@@ -73,7 +74,7 @@ const Card = (props) => (
   <div className="flex flex-col group relative p-5 text-white bg-cover bg-no-repeat rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700" style={props.style}>
     <div className="flex flex-col items-center content-center justify-self-center justify-items-center justify-content-center">
       {props.hover}
-      <h5 className="mb-2 text-3xl font-bold whitespace-pre z-20" style={props.titleStyle}>{props.title}</h5>
+      <h5 className="text-center mb-2 text-3xl font-bold whitespace-wrap z-20" style={props.titleStyle}>{props.title}</h5>
         {props.button}
     </div>
     {props.children}
@@ -83,19 +84,19 @@ const Card = (props) => (
 const List = () => (
   <>
   <ListItem
-    text="Improved sleep quality"
+    text={t("home.card1.first")}
     icon={<span className="material-symbols-outlined">routine</span>}
   />
   <ListItem
-    text="Lowers blood pressure"
+    text={t("home.card1.second")}
     icon={<span className="material-symbols-outlined">monitor_heart</span>}
   />
   <ListItem
-    text="Increases confidence and self-esteem"
+    text={t("home.card1.third")}
     icon={<span className="material-symbols-outlined">sentiment_satisfied</span>}
   />
   <ListItem
-    text="Provides stress relief"
+    text={t("home.card1.fourth")}
     icon={<span className="material-symbols-outlined">favorite</span>}
   />
   </>
@@ -110,7 +111,7 @@ const ListItem = (props) => (
 
 const Button = () => (
   <>
-  <p className="mb-3 text-xl">Here is the most popular rain sound for today.</p>
+  <p className="mb-3 text-xl">{t("home.card2.subtitle")}</p>
   <button type="button" className="text-gray-900 bg-gray-100 hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 mr-2 mb-2">
     <span className="material-icons" style={{fontSize: "20px"}}>play_arrow</span>
   </button>

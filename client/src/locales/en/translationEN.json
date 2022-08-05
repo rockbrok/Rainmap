@@ -1,0 +1,43 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "map": "Map",
+    "login": "Login / Register"
+  },
+  "account": {
+    "account": "Account",
+    "upload": "Upload audio",
+    "sign-out": "Sign out"
+  },
+  "home": {
+    "card1": {
+      "title": "Benefits of listening to rain",
+      "first": "Improved sleep quality",
+      "second": "Lowers blood pressure",
+      "third": "Increases confidence and self-esteem",
+      "fourth": "Provides stress relief"
+    },
+    "card2": {
+      "title": "Rain sound of the day",
+      "subtitle": "Here is the most popular rain sound for today"
+    },
+    "card3": "Light rain sounds",
+    "card4": "Thunder sounds"
+  },
+  "about": {
+    "about": "About Us"
+  },
+  "login": {
+    "login": "Login",
+    "register": "Register",
+    "email": "Your email",
+    "password": "Your password",
+    "password-repeat": "Repeat password",
+    "agree": "I agree with the",
+    "terms": "terms and conditions",
+    "create": "Create an account",
+    "sign-in": "Sign in"
+  },
+  "footer": "Made with"
+}
