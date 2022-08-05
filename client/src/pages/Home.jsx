@@ -84,19 +84,19 @@ const List = () => (
   <>
   <ListItem
     text="Improved sleep quality"
-    icon={<span class="material-symbols-outlined">routine</span>}
+    icon={<span className="material-symbols-outlined">routine</span>}
   />
   <ListItem
     text="Lowers blood pressure"
-    icon={<span class="material-symbols-outlined">monitor_heart</span>}
+    icon={<span className="material-symbols-outlined">monitor_heart</span>}
   />
   <ListItem
     text="Increases confidence and self-esteem"
-    icon={<span class="material-symbols-outlined">sentiment_satisfied</span>}
+    icon={<span className="material-symbols-outlined">sentiment_satisfied</span>}
   />
   <ListItem
     text="Provides stress relief"
-    icon={<span class="material-symbols-outlined">psychology</span>}
+    icon={<span className="material-symbols-outlined">favorite</span>}
   />
   </>
 );
@@ -111,9 +111,8 @@ const ListItem = (props) => (
 const Button = () => (
   <>
   <p className="mb-3 text-xl">Here is the most popular rain sound for today.</p>
-  <button type="button" class="text-gray-900 bg-gray-100 hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 mr-2 mb-2">
-    <span class="material-symbols-outlined">play_arrow</span>
-    &nbsp;Click to play audio
+  <button type="button" className="text-gray-900 bg-gray-100 hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 mr-2 mb-2">
+    <span className="material-icons" style={{fontSize: "20px"}}>play_arrow</span>
   </button>
   </>
 );

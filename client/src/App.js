@@ -6,6 +6,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Map from "./pages/Map";
 import About from "./pages/About";
+import Account from "./pages/Account";
+import Upload from "./pages/Upload";
 
 // components
 import Navbar from "./components/Navbar";
@@ -17,6 +19,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/account" element={<Account />} />
+        <Route path="/upload" element={<Upload />} />
         <Route path="/about" element={<About />} />
         <Route path="/register" element={<Register />} />
         <Route path="/map" element={<Map />} />
