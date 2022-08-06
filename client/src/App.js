@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // pages
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Register from "./pages/Register";
 import Map from "./pages/Map";
 import About from "./pages/About";
 import Account from "./pages/Account";
@@ -22,7 +21,6 @@ export default function App() {
         <Route path="/account" element={<Account />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/about" element={<About />} />
-        <Route path="/register" element={<Register />} />
         <Route path="/map" element={<Map />} />
       </Routes>
     </Router>

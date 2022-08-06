@@ -1,76 +1,163 @@
-import { Helmet } from 'react-helmet';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Title } from '../components/Helmet';
+import { Label, Input, Button, Path, Checkbox } from '../components/Form';
 import { t } from 'i18next';
 
 // components
 import { Page } from '../App';
 
 export default function Login() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [show, setShow] = useState(false);
+  const { handleSubmit, formState: { errors } } = useForm();
   const onSubmit = (data) => console.log(data);
+
   return (
     <Page>
-      <Helmet>
-        <title>Rainmap | {t("login.login")}</title>
-      </Helmet>
-      <section className="grid grid-rows-1 grid-cols-7 grid-flow-row-dense gap-6 px-8 w-full mb-6">
-        <Image />
-        <Form 
-          onSubmit={onSubmit}
-          handleSubmit={handleSubmit}
-          register={register}
+      {show ?
+        <Form
+          title={t("login.register")}
+          form={
+            <RegisterForm
+              onSubmit={onSubmit}
+              handleSubmit={handleSubmit}
+              show={show}
+              setShow={setShow}
+            />
+          }
         />
-      </section>
+        :
+        <Form
+          title={t("login.login")}
+          form={
+            <LoginForm
+              onSubmit={onSubmit}
+              handleSubmit={handleSubmit}
+              show={show}
+              setShow={setShow}
+            />
+          }
+        />
+      }
     </Page>
   )
 }
 
+const Form = (props) => (
+  <>
+    <Title
+      title={props.title}
+    />
+    <section className="grid grid-rows-1 grid-cols-7 grid-flow-row-dense gap-6 px-8 w-full mb-6">
+      <div 
+        className="row-span-1 col-start-2 col-end-4 
+        p-5 
+        text-white 
+        h-[26rem] 
+        bg-[url('https://live.staticflickr.com/6205/6135740904_988084a60a_b.jpg')] bg-bottom bg-cover bg-no-repeat 
+        rounded-lg border border-gray-200 shadow-md 
+        dark:bg-gray-800 dark:border-gray-700" 
+      />
+      <div className="grid row-span-1 col-span-3 items-center">
+        {props.form}
+      </div>
+    </section>
+  </>
+);
 
-const Image = () => (
-  <div className="row-span-1 col-start-2 col-end-4 p-5 text-white h-[26rem] bg-[url('https://live.staticflickr.com/6205/6135740904_988084a60a_b.jpg')] bg-bottom bg-cover bg-no-repeat rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"/>
+const LoginForm = ({ onSubmit, handleSubmit, show, setShow }) => (
+  <form
+    onSubmit={handleSubmit(onSubmit)}
+    className="flex flex-col gap-4"
+  >
+    <Label
+      for="email"
+      name="Email address"
+    />
+    <Input
+      id="email"
+      type="email"
+      placeholder="Enter email"
+    />
+    <Label
+      for="password"
+      name="Password"
+    />
+    <Input
+      id="password"
+      type="password"
+      placeholder="Password"
+    />
+    <div className="flex items-center mb-6">
+      <Checkbox
+        id="check"
+      />
+      <Label
+        for="check"
+        name="Remember me"
+        style={{ marginTop: "8px" }}
+      />
+    </div>
+    <Button
+      name="Sign in"
+    />
+    <Path
+      description="Not a member?&nbsp;"
+      path="/register"
+      name="Register"
+      show={show}
+      setShow={setShow}
+    />
+  </form>
 )
 
-const Form = ({onSubmit, handleSubmit, register}) => (
-  <form onSubmit={handleSubmit(onSubmit)} className="row-span-1 col-span-3 flex flex-col gap-4">
-    <label for="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-      {t("login.email")}
-    </label>
-    <input {
-      ...register('email', 
-      { required: true })
-      }
-      type="email"
+
+const RegisterForm = ({ onSubmit, handleSubmit, show, setShow }) => (
+  <form 
+    onSubmit={handleSubmit(onSubmit)} 
+    className="flex flex-col gap-4"
+  >
+    <Label
+      for="email"
+      name="Email address"
+    />
+    <Input
       id="email"
-      className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+      type="email"
+      placeholder="Enter email"
     />
-    <label 
-      for="password" 
-      className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-    >
-      {t("login.password")}
-    </label>
-    <input {
-      ...register('password', 
-      { required: true })
-      }
-      type="password"
-      id="password"
-      className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+    <Label
+      for="password"
+      name="Password"
     />
-    <section className="flex flex-row justify-between">
-      <Link
-        to="/register"
-        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      >
-        {t("login.create")}
-      </Link>
-      <button 
-        type="submit" 
-        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      >
-        {t("login.sign-in")}
-      </button>
-    </section>
+    <div className="grid grid-cols-2 gap-x-4 gap-y-2 mb-6">
+      <Input
+        id="password"
+        type="password"
+        placeholder="Password"
+        describedby="passwordHelp"
+      />
+      <Input
+        id="password-repeat"
+        type="password"
+        placeholder="Repeat password"
+        describedby="passwordHelp"
+      />
+      <small
+        id="passwordHelp"
+        className="block mt-1 text-xs text-gray-600">
+        Enter at least 8 characters.
+      </small>
+    </div>
+    <Button
+      name="Sign up"
+    />
+    <Path
+      description="Already a member?&nbsp;"
+      path="/login"
+      name="Login"
+      show={show}
+      setShow={setShow}
+    />
   </form>
 )

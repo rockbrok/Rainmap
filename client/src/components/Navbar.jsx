@@ -7,11 +7,6 @@ const changeLanguage = (language) => (
   i18n.changeLanguage(language)
 );
 
-function LanguageChange() {
-  i18n.language === "en" ? 
-    changeLanguage("es") : changeLanguage("en")
-}
-
 export default function Navbar() {
   const [showAccount, setShowAccount] = useState(false);
   const [showLanguage, setShowLanguage] = useState(false);
@@ -48,8 +43,17 @@ export default function Navbar() {
             />
             <OutsideClickHandler onOutsideClick={() => { setShowAccount(false) }}>
               <div className="relative flex flex-col items-center">
-                <span className="material-symbols-outlined cursor-pointer select-none" onClick={() => setShowAccount(!showAccount)}>account_circle</span>
-                {showAccount ? <Account /> : null}
+                <span 
+                  className="material-symbols-outlined cursor-pointer select-none" 
+                  style={{ filter: "invert(25%) sepia(10%) saturate(1382%) hue-rotate(177deg) brightness(99%) contrast(84%)" }}
+                  onClick={() => setShowAccount(!showAccount)}
+                >
+                  account_circle
+                </span>
+                {showAccount ? 
+                  <Account 
+                  /> : null
+                }
               </div>
             </OutsideClickHandler>
             <OutsideClickHandler onOutsideClick={() => { setShowLanguage(false) }}>
@@ -71,29 +75,38 @@ export default function Navbar() {
   )
 }
 
-const Account = () => (
+const Account = () => {
+  const Path = (props) => (
+    <NavLink
+      to={props.path}
+      style={{ fontFamily: "Roboto", fontWeight: "400", display: "flex", flexDirection: "column", textAlign: "center"}}
+      className={({ isActive }) =>
+        (isActive ? "text-gray-400 cursor-default" : "text-gray-700 md:hover:text-gray-900 dark:text-gray-400 md:dark:hover:text-white dark:hover:text-white")
+      }
+    >
+      {props.name}
+    </NavLink>
+  )
+
+  return (
   <div className="absolute top-10 z-20 flex flex-col w-36 px-6 py-2.5 bg-white rounded border border-gray-200 shadow-md">
-    <Link
-      to="/account"
-      style={{ fontFamily: "Roboto", fontWeight: "400" }}
-      className="flex text-center self-center text-gray-700 md:hover:text-gray-900 dark:text-gray-400 md:dark:hover:text-white dark:hover:text-white"
-    >
-      {t("account.account")}
-    </Link>
+    <Path
+      path="/account"
+      name={t("account.account")}
+    />
     <hr className="my-3 border-gray-300" />
-    <Link
-      to="/upload"
-      style={{ fontFamily: "Roboto", fontWeight: "400" }}
-      className="flex text-center self-center text-gray-700 md:hover:text-gray-900 dark:text-gray-400 md:dark:hover:text-white dark:hover:text-white"
-    >
-      {t("account.upload")}
-    </Link>
+    <Path
+      path="/upload"
+      name={t("account.upload")}
+    />
     <hr className="my-3 border-gray-300" />
     <button style={{ fontFamily: "Roboto", fontWeight: "400" }} className="mb-3 text-center text-gray-700 md:hover:text-gray-900 dark:text-gray-400 md:dark:hover:text-white dark:hover:text-white">
       {t("account.sign-out")}
     </button>
   </div>
-);
+  )
+  
+};
 
 const Path = (props) => (
   <li>
@@ -142,6 +155,7 @@ const Language = () => (
 const Button = (props) => (
   <button 
     onClick={props.click}
+    id="language-btn"
     onClickCapture={() => window.location.reload(false)}
     style={{ fontFamily: "Roboto", fontWeight: "400" }} 
     className="text-gray-700 md:hover:text-gray-900 dark:text-gray-400 md:dark:hover:text-white dark:hover:text-white"

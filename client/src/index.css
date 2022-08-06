@@ -10,3 +10,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #fff;
 }
+
+#language-btn:disabled {
+  color: #9ca3af;
+}

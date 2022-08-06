@@ -1,6 +1,8 @@
 import Leaflet from 'leaflet';
+import { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useForm } from 'react-hook-form';
+import { Checkbox } from '../components/Form';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { t } from 'i18next';
 
@@ -10,6 +12,8 @@ import { Page } from '../App';
 export default function Map() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = (data) => console.log(data);
+  const [checked, setChecked] = useState(null);
+
   return (
     <Page>
       <Helmet>
@@ -22,6 +26,8 @@ export default function Map() {
           onSubmit={onSubmit}
           handleSubmit={handleSubmit}
           register={register}
+          checked={checked}
+          setChecked={setChecked}
         />
         <Cartogram
           MapContainer={MapContainer}
@@ -60,95 +66,73 @@ const Cartogram = ({MapContainer, TileLayer, Marker, Popup}) => (
   </div>
 );
 
-const Form = ({onSubmit, handleSubmit, register}) => (
-  <form onSubmit={handleSubmit(onSubmit)} className="row-span-1 col-span-1 flex flex-col p-6 gap-4">
+const Form = ({onSubmit, handleSubmit, checked, setChecked }) => (
+  <form 
+    onSubmit={handleSubmit(onSubmit)} 
+    className="row-span-1 col-span-1 flex flex-col p-6 gap-4"
+  >
     <span className="uppercase text-sm font-medium">Filter by</span>
     <span className="text-sm">Duration</span>
-    <div class="form-check">
-      <input {
-        ...register('under-20',
-          { required: true })
-      }
-        className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-        type="checkbox"
-        value=""
-        id="flexCheckDefault"
-      />
-      <label className="form-check-label inline-block text-gray-800" for="flexCheckDefault">
-        {`< 20 minutes`}
-      </label>
-    </div>
-    <div className="form-check">
-      <input {
-        ...register('under-60',
-          { required: true })
-      }
-        className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-        type="checkbox"
-        value=""
-        id="flexCheckDefault"
-      />
-      <label className="form-check-label inline-block text-gray-800" for="flexCheckDefault">
-        {`< 60 minutes`}
-      </label>
-    </div>
+    <Input
+      id="under-20"
+      value=""
+      name={`< 20 minutes`}
+      checked={checked}
+      setChecked={setChecked}
+    />
+    <Input
+      id="under-60"
+      value=""
+      name={`< 60 minutes`}
+      checked={checked}
+      setChecked={setChecked}
+    />
     <span className="text-sm">Type</span>
-    <div className="form-check">
-      <input {
-        ...register('light-rain',
-          { required: true })
-      }
-        className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-        type="checkbox"
-        value=""
-        id="flexCheckDefault"
-      />
-      <label className="form-check-label inline-block text-gray-800" for="flexCheckDefault">
-        {`Light rain`}
-      </label>
-    </div>
-    <div className="form-check">
-      <input {
-        ...register('hard-rain',
-          { required: true })
-      }
-        className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-        type="checkbox"
-        value=""
-        id="flexCheckDefault"
-      />
-      <label className="form-check-label inline-block text-gray-800" for="flexCheckDefault">
-        {`Hard rain`}
-      </label>
-    </div>
-    <div className="form-check">
-      <input {
-        ...register('hybrid-rain',
-          { required: true })
-      }
-        className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-        type="checkbox"
-        value=""
-        id="flexCheckDefault"
-      />
-      <label className="form-check-label inline-block text-gray-800" for="flexCheckDefault">
-        {`Hybrid rain`}
-      </label>
-    </div>
-    <div className="form-check">
-      <input {
-        ...register('thunder',
-          { required: true })
-      }
-        className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-        type="checkbox"
-        value=""
-        id="flexCheckDefault"
-      />
-      <label className="form-check-label inline-block text-gray-800" for="flexCheckDefault">
-        {`Thunder`}
-      </label>
-    </div>
-    <button type="button" className="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out">Submit</button>
+    <Input
+      id="light-rain"
+      value=""
+      name={`Light rain`}
+    />
+    <Input
+      id="hard-rain"
+      value=""
+      name={`Hard rain`}
+    />
+    <Input
+      id="hybrid-rain"
+      value=""
+      name={`Hybrid rain`}
+    />
+    <Input
+      id="thunder"
+      value=""
+      name={`Thunder`}
+    />
+    <button 
+      type="submit" 
+      className="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
+    >
+      Submit
+    </button>
   </form>
 );
+
+const Input = (props, {checked, setChecked}) => {
+  const toggle = evt => setChecked(current => current === evt.target.value ? null : evt.target.value);
+
+  return (
+  <div className="form-check">
+    <Checkbox
+      id={props.id}
+      value={props.value}
+      checked={checked === props.id}
+      onChange={toggle}
+    />
+    <label
+      className="form-check-label inline-block text-gray-800"
+      for={props.id}>
+      {props.name}
+    </label>
+  </div>
+  )
+}

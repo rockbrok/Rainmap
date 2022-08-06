@@ -69,7 +69,6 @@ export default function Home() {
   );
 }
 
-
 const Card = (props) => (
   <div className="flex flex-col group relative p-5 text-white bg-cover bg-no-repeat rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700" style={props.style}>
     <div className="flex flex-col items-center content-center justify-self-center justify-items-center justify-content-center">
