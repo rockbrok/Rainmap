@@ -53,12 +53,12 @@ const Form = (props) => (
         className="row-span-1 col-start-2 col-end-4 
         p-5 
         text-white 
-        h-[26rem] 
+        h-[24rem] 
         bg-[url('https://live.staticflickr.com/6205/6135740904_988084a60a_b.jpg')] bg-bottom bg-cover bg-no-repeat 
         rounded-lg border border-gray-200 shadow-md 
         dark:bg-gray-800 dark:border-gray-700" 
       />
-      <div className="grid row-span-1 col-span-3 items-center">
+      <div className="grid row-span-1 col-span-3">
         {props.form}
       </div>
     </section>

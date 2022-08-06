@@ -1426,6 +1426,10 @@ input:checked + .toggle-bg {
   height: 0px;
 }
 
+.h-\[24rem\] {
+  height: 24rem;
+}
+
 .w-full {
   width: 100%;
 }
