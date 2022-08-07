@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
-import { Title } from '../components/Helmet';
 import { Label, Input, Button, Path, Checkbox } from '../components/Form';
 import { t } from 'i18next';
 
@@ -13,56 +12,59 @@ export default function Login() {
   const onSubmit = (data) => console.log(data);
 
   return (
-    <Page>
+    <>
       {show ?
-        <Form
-          title={t("login.register")}
-          form={
-            <RegisterForm
-              onSubmit={onSubmit}
-              handleSubmit={handleSubmit}
-              show={show}
-              setShow={setShow}
-            />
-          }
-        />
+        <Page
+          title={`Rainmap | Register`}
+        >
+          <Form
+            form={
+              <RegisterForm
+                onSubmit={onSubmit}
+                handleSubmit={handleSubmit}
+                show={show}
+                setShow={setShow}
+              />
+            }
+          />
+        </Page>
         :
-        <Form
-          title={t("login.login")}
-          form={
-            <LoginForm
-              onSubmit={onSubmit}
-              handleSubmit={handleSubmit}
-              show={show}
-              setShow={setShow}
-            />
-          }
-        />
+        <Page
+          title={`Rainmap | Login`}
+        >
+          <Form
+            form={
+              <LoginForm
+                onSubmit={onSubmit}
+                handleSubmit={handleSubmit}
+                show={show}
+                setShow={setShow}
+              />
+            }
+          />
+        </Page>
       }
-    </Page>
+    </>
   )
 }
 
 const Form = (props) => (
-  <>
-    <Title
-      title={props.title}
-    />
-    <section className="grid grid-rows-1 grid-cols-7 grid-flow-row-dense gap-6 px-8 w-full mb-6">
-      <div 
-        className="row-span-1 col-start-2 col-end-4 
+
+  <section className="grid grid-rows-1 grid-cols-7 grid-flow-row-dense gap-6 px-8 w-full mb-6">
+    <div
+      className="row-span-1 col-start-2 col-end-4 
         p-5 
         text-white 
         h-[24rem] 
         bg-[url('https://live.staticflickr.com/6205/6135740904_988084a60a_b.jpg')] bg-bottom bg-cover bg-no-repeat 
         rounded-lg border border-gray-200 shadow-md 
-        dark:bg-gray-800 dark:border-gray-700" 
-      />
-      <div className="grid row-span-1 col-span-3">
-        {props.form}
-      </div>
-    </section>
-  </>
+        dark:bg-gray-800 dark:border-gray-700"
+    />
+    <div className="grid row-span-1 col-span-3">
+      {props.form}
+    </div>
+  </section>
+
 );
 
 const LoginForm = ({ onSubmit, handleSubmit, show, setShow }) => (
@@ -113,8 +115,8 @@ const LoginForm = ({ onSubmit, handleSubmit, show, setShow }) => (
 
 
 const RegisterForm = ({ onSubmit, handleSubmit, show, setShow }) => (
-  <form 
-    onSubmit={handleSubmit(onSubmit)} 
+  <form
+    onSubmit={handleSubmit(onSubmit)}
     className="flex flex-col gap-4"
   >
     <Label

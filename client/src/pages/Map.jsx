@@ -1,6 +1,5 @@
 import Leaflet from 'leaflet';
 import { useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { useForm } from 'react-hook-form';
 import { Checkbox } from '../components/Form';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
@@ -15,12 +14,9 @@ export default function Map() {
   const [checked, setChecked] = useState(null);
 
   return (
-    <Page>
-      <Helmet>
-        <title>
-          Rainmap | {t("nav.map")}
-        </title>
-      </Helmet>
+    <Page
+      title={`Rainmap | Map`}
+    >
       <section className="grid grid-rows-1 grid-cols-7 grid-flow-row-dense gap-6 px-8 w-full mb-6">
         <Form 
           onSubmit={onSubmit}

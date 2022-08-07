@@ -1,16 +1,11 @@
-import { Helmet } from 'react-helmet';
-
 // components
 import { Page } from '../App';
 
 export default function Account() {
   return (
-    <Page>
-      <Helmet>
-        <title>
-          Rainmap | Account
-        </title>
-      </Helmet>
+    <Page
+      title={`Rainmap | Account`}
+    >
       <section className="flex flex-col items-center">
         <div className="flex flex-col gap-6 items-center my-8 px-8 max-w-lg text-gray-700">
           <h2 className="text-xl">Welcome</h2>

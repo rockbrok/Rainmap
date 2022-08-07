@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 // pages
 import Home from "./pages/Home";
@@ -7,6 +8,7 @@ import Map from "./pages/Map";
 import About from "./pages/About";
 import Account from "./pages/Account";
 import Upload from "./pages/Upload";
+import Contact from "./pages/Contact";
 
 // components
 import Navbar from "./components/Navbar";
@@ -21,6 +23,7 @@ export default function App() {
         <Route path="/account" element={<Account />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/map" element={<Map />} />
       </Routes>
     </Router>
@@ -28,11 +31,16 @@ export default function App() {
 }
 
 export const Page = (props) => (
-  <div className="flex flex-col h-screen">
-    <Navbar />
-    <section className="flex flex-col grow justify-center">
-      {props.children}
-    </section>
-    <Footer />
-  </div>
+  <>
+    <Helmet>
+      <title>{props.title}</title>
+    </Helmet>
+    <div className="flex flex-col h-screen">
+      <Navbar />
+      <section className="flex flex-col grow justify-center">
+        {props.children}
+      </section>
+      <Footer />
+    </div>
+  </>
 );
