@@ -1,24 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
-function App() {
+// pages
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Map from "./pages/Map";
+import About from "./pages/About";
+import Account from "./pages/Account";
+import Upload from "./pages/Upload";
+import Contact from "./pages/Contact";
+
+// components
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h3>Hello world!</h3>
-        <Card />
-      </header>
-    </div>
+    <Router basename={process.env.PUBLIC_URL}>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/account" element={<Account />} />
+        <Route path="/upload" element={<Upload />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/map" element={<Map />} />
+      </Routes>
+    </Router>
   );
 }
 
-const Card = () => (
-  <div>
-    <h2>Rain of the day</h2>
-    <button>Play audio</button>
-    <button>Copy audio link</button>
-  </div>
-)
-
-export default App;
+export const Page = (props) => (
+  <>
+    <Helmet>
+      <title>{props.title}</title>
+    </Helmet>
+    <div className="flex flex-col h-screen">
+      <Navbar />
+      <section className="flex flex-col grow justify-center">
+        {props.children}
+      </section>
+      <Footer />
+    </div>
+  </>
+);

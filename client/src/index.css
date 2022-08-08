@@ -1,13 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  width: 100vw;
+  overflow-x: hidden;
+  height: 100vh;
+  font-family: Roboto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #fff;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+
+
+input[type=file]::file-selector-button {
+  padding: 6px 12px;
+  border-radius: 0;
+  background-color: #f1f1f1;
+  margin: -6px 12px -6px -12px;
+  border-right: 1px solid #d1d5db;
+  color: #555555;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+input[type=file]::file-selector-button:hover {
+  background-color: #e9e9e9;
+}
+
+#edit {
+  padding: 6px 12px;
+  border-radius: 0 4px 4px 0;
+  background-color: #f1f1f1;
+  border-left: 1px solid #d1d5db;
+  color: #555555;
+  font-weight: 400;
+  font-size: 16px;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+}
+
+#edit:hover {
+  background-color: #e9e9e9;
+}
+
+#save:disabled,
+#save:disabled:hover{
+  background-color: #cccccc;
+  color: #666666;
+  box-shadow: 0 0;
+}
+
+#language-btn:disabled {
+  color: #9ca3af;
+}
+
+#delete-btn {
+  padding: 6px 12px;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+  border: 1px solid #d1d5db;
+  color: #555555;
+  font-weight: 400;
+  font-size: 24px;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+}
+
+#delete-btn:hover {
+  background-color: #e9e9e9;
+}
+
+#delete:hover #delete-btn {
+  background-color: #e9e9e9;
+}
+
+#user {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 600,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+#play {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
 }

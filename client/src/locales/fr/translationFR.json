@@ -1,0 +1,43 @@
+{
+  "nav": {
+    "home": "Maison",
+    "about": "Au sujet de",
+    "map": "Carte",
+    "login": "Login"
+  },
+  "account": {
+    "account": "Compte",
+    "upload": "Télécharger de l'audio",
+    "sign-out": "Se déconnecter"
+  },
+  "home": {
+    "card1": {
+      "title": "Avantages d'écouter la pluie",
+      "first": "Amélioration de la qualité du sommeil",
+      "second": "Lowers blood pressure",
+      "third": "Abaisse la tension artérielle",
+      "fourth": "Fournit un soulagement du stress"
+    },
+    "card2": {
+      "title": "Bruit de pluie du jour",
+      "subtitle": "Voici le son de pluie le plus populaire pour aujourd'hui"
+    },
+    "card3": "Légers bruits de pluie",
+    "card4": "Bruits de tonnerre"
+  },
+  "about": {
+    "about": "À propos de nous"
+  },
+  "login": {
+    "login": "Login",
+    "register": "Enregistrer",
+    "email": "Votre e-mail",
+    "password": "Votre mot de passe",
+    "password-repeat": "Répéter le mot de passe",
+    "agree": "Je suis d'accord avec le",
+    "terms": "termes et conditions",
+    "create": "Créer un compte",
+    "sign-in": "S'identifier"
+  },
+  "footer": "Fabriqué avec"
+}
