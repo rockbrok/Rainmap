@@ -1,5 +1,4 @@
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
 
 export const Label = (props) => (
   <label 
@@ -21,6 +20,8 @@ export const Input = (props) => {
       }
       type={props.type}
       id={props.id}
+      value={props.value}
+      style={props.style}
       aria-describedby={props.describedby}
       placeholder={props.placeholder}
       className="form-control block
@@ -75,6 +76,8 @@ export const Select = (props) => {
 export const Button = (props) => (
   <button
     type="submit"
+    id="save"
+    disabled={props.disabled}
     className="w-full
       px-6
       py-2.5
