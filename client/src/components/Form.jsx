@@ -77,6 +77,7 @@ export const Button = (props) => (
   <button
     type="submit"
     id="save"
+    onClick={props.click}
     disabled={props.disabled}
     className="w-full
       px-6
@@ -123,6 +124,8 @@ export const Checkbox = (props) => {
       type="checkbox"
       id={props.id}
       value={props.value}
+      style={props.style}
+      onChange={props.change}
       className="form-check-input 
         appearance-none 
         h-4 w-4 

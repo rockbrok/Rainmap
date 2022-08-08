@@ -16,7 +16,7 @@ import Footer from "./components/Footer";
 
 export default function App() {
   return (
-    <Router basename="/rainmap">
+    <Router basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
