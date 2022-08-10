@@ -28,7 +28,7 @@ input[type=file]::file-selector-button:hover {
   background-color: #e9e9e9;
 }
 
-#edit {
+.edit {
   padding: 6px 12px;
   border-radius: 0 4px 4px 0;
   background-color: #f1f1f1;
@@ -41,7 +41,7 @@ input[type=file]::file-selector-button:hover {
   align-items: center;
 }
 
-#edit:hover {
+.edit:hover {
   background-color: #e9e9e9;
 }
 

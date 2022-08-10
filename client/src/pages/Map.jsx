@@ -126,7 +126,7 @@ const Input = (props, {checked, setChecked}) => {
     />
     <label
       className="form-check-label inline-block text-gray-800"
-      for={props.id}>
+      htmlFor={props.id}>
       {props.name}
     </label>
   </div>

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 // components
-import { Page } from '../App';
+import { Page, Container } from '../App';
 import { Label, Input, Button, Checkbox } from '../components/Form';
 
 export default function Account() {
@@ -63,7 +63,7 @@ const Info = ({ show, setShow, onSubmit, handleSubmit }) => (
           value={`password`}
         />
         <Input
-          id="password"
+          id="password-repeat"
           type="password"
           placeholder="Repeat password"
         />
@@ -95,7 +95,6 @@ const Delete = ({ agree, setAgree, cancel, onSubmit, handleSubmit }) => (
   <form onSubmit={handleSubmit(onSubmit)}>
     <Container>
       <Label
-        for="check"
         name="Are you sure?"
       />
       <div className="flex flex-row items-center">
@@ -123,11 +122,7 @@ const Delete = ({ agree, setAgree, cancel, onSubmit, handleSubmit }) => (
   </form>
 );
 
-const Container = (props) => (
-  <div className="flex flex-col rounded border border-gray-200 p-6 w-[448px] gap-6">
-    {props.children}
-  </div>
-);
+
 
 const EditInput = (props) => (
   <div>
@@ -143,10 +138,10 @@ const EditInput = (props) => (
         style={{ marginRight: "-50px" }}
       />
       <button
-        id="edit"
+        className="edit"
         onClick={() => document.getElementById(props.id).focus()}
       >
-        <span class="material-symbols-outlined">edit</span>
+        <span className="material-symbols-outlined">edit</span>
       </button>
     </div>
   </div>

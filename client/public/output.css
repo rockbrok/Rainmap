@@ -2314,6 +2314,10 @@ input:checked + .toggle-bg {
   background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
 }
 
+.bg-\[url\(\'https\:\/\/live\.staticflickr\.com\/1288\/5183638812_d57e1f9721_b\.jpg\'\)\] {
+  background-image: url('https://live.staticflickr.com/1288/5183638812_d57e1f9721_b.jpg');
+}
+
 .from-indigo-500 {
   --tw-gradient-from: #6875F5;
   --tw-gradient-to: rgb(104 117 245 / 0);
@@ -2533,6 +2537,18 @@ input:checked + .toggle-bg {
 
 .bg-bottom {
   background-position: bottom;
+}
+
+.bg-top {
+  background-position: top;
+}
+
+.bg-left {
+  background-position: left;
+}
+
+.bg-right {
+  background-position: right;
 }
 
 .bg-no-repeat {

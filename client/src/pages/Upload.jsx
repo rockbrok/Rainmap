@@ -15,7 +15,7 @@ export default function Upload() {
             Contribute to the Rainmap database
           </p>
           <div className="rounded border border-gray-200 p-6 w-[448px]">
-            <div class="grid grid-cols-6 gap-6">
+            <div className="grid grid-cols-6 gap-6">
               <div className="col-span-6">
                 <Label
                   for="file"
@@ -27,14 +27,14 @@ export default function Upload() {
                   placeholder="No file chosen"
                 />
               </div>
-              <div class="col-span-3">
+              <div className="col-span-3">
                 <Label
                   for="country"
                   name="Country / Region"
                 />
                 <SelectCountry />
               </div>
-              <div class="col-span-3">
+              <div className="col-span-3">
                 <Label
                   for="city"
                   name="City"
@@ -45,7 +45,7 @@ export default function Upload() {
                   placeholder="Enter city"
                 />
               </div>
-              <div class="col-span-3">
+              <div className="col-span-3">
                 <Label
                   for="rain"
                   name="Rain type"
@@ -77,7 +77,7 @@ const SelectCountry = () => (
   <Select
     id="country"
   >
-    <option value="" disabled selected hidden>Select a country</option>
+    <option value="" disabled hidden selected>Select a country</option>
     <option value="Afghanistan">Afghanistan</option>
     <option value="Albania">Albania</option>
     <option value="Algeria">Algeria</option>

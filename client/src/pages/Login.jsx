@@ -56,7 +56,7 @@ const Form = (props) => (
         p-5 
         text-white 
         h-[24rem] 
-        bg-[url('https://live.staticflickr.com/6205/6135740904_988084a60a_b.jpg')] bg-bottom bg-cover bg-no-repeat 
+        bg-[url('https://live.staticflickr.com/1288/5183638812_d57e1f9721_b.jpg')] bg-top bg-cover bg-no-repeat 
         rounded-lg border border-gray-200 shadow-md 
         dark:bg-gray-800 dark:border-gray-700"
     />

@@ -1,15 +1,26 @@
-import { Helmet } from 'react-helmet';
 import { t } from 'i18next';
+import {useState, useEffect} from 'react';
 
 // components
 import { Page } from '../App';
 
 export default function Home() {
+  const [data, setData] = useState([{}]);
+
+  useEffect(() => {
+    fetch("/").then(
+      res => res.json()
+    ).then (
+      data => {
+        setData(data)
+        console.log(data)
+      }
+    )
+  }, [])
   return (
-    <Page>
-      <Helmet>
-        <title>Rainmap</title>
-      </Helmet>
+    <Page
+      title={`Rainmap`}
+    >
       <section className="grid grid-rows-2 grid-cols-4 grid-flow-row-dense gap-6 items-center my-8 px-8 w-full">
         <Card
           style={{
@@ -38,8 +49,8 @@ export default function Home() {
         />
         <Card
           style={{
-            backgroundImage: "url('https://live.staticflickr.com/8330/8102240427_80d3e71512_b.jpg')",
-            backgroundPosition: "left",
+            backgroundImage: "url('https://upload.wikimedia.org/wikipedia/commons/3/34/Rain_nd_hill.jpg')",
+            backgroundPosition: "bottom",
             height: "20rem",
             justifyContent: "center"
           }}
@@ -52,7 +63,7 @@ export default function Home() {
         />
         <Card
           style={{
-            backgroundImage: "url('https://live.staticflickr.com/5574/14816852688_d3e65036e3_b.jpg')",
+            backgroundImage: "url('https://live.staticflickr.com/4146/5038376688_820a9e81c2_b.jpg')",
             backgroundPosition: "top",
             height: "20rem",
             justifyContent: "center"
@@ -112,7 +123,7 @@ const Button = () => (
   <>
     <p className="mb-3 text-xl">{t("home.card2.subtitle")}</p>
     <button type="button">
-      <span class="material-symbols-outlined" style={{ fontSize: "40px" }} id="play">
+      <span className="material-symbols-outlined" style={{ fontSize: "40px" }} id="play">
         play_circle
       </span>
     </button>

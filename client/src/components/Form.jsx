@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 
 export const Label = (props) => (
   <label 
-      for={props.for}
+      htmlFor={props.for}
       className="form-label inline-block mb-2 text-gray-700"
       style={props.style}
     >

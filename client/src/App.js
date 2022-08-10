@@ -44,3 +44,9 @@ export const Page = (props) => (
     </div>
   </>
 );
+
+export const Container = (props) => (
+  <div className="flex flex-col rounded border border-gray-200 p-6 w-[448px] gap-6">
+    {props.children}
+  </div>
+);
