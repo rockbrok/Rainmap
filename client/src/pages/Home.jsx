@@ -46,8 +46,8 @@ export default function Home() {
             justifyContent: "center",
             alignItems: "center"
           }}
-          title={t("home.card1.title")}
-          // title={data.profile_name}
+          // title={t("home.card1.title")}
+          title={data.profile_name}
           children={<List />}
         />
         <Card
