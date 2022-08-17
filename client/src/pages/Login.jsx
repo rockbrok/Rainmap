@@ -1,10 +1,10 @@
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
-import { Label, Input, Button, Path, Checkbox } from '../components/Form';
+import { Label, Input, Button, Path, Checkbox, showPassword } from '../components/Form';
 import { t } from 'i18next';
 
 // components
-import { Page } from '../App';
+import { Page, Section, Container, H2 } from '../App';
 
 export default function Login() {
   const [show, setShow] = useState(false);
@@ -14,152 +14,155 @@ export default function Login() {
   return (
     <>
       {show ?
-        <Page
+        <Form
           title={`Rainmap | Register`}
-        >
-          <Form
-            form={
-              <RegisterForm
-                onSubmit={onSubmit}
-                handleSubmit={handleSubmit}
-                show={show}
-                setShow={setShow}
-              />
-            }
-          />
-        </Page>
+          name="Register"
+          form={
+            <RegisterForm
+              onSubmit={onSubmit}
+              handleSubmit={handleSubmit}
+              show={show}
+              setShow={setShow}
+            />
+          }
+        />
         :
-        <Page
+        <Form
           title={`Rainmap | Login`}
-        >
-          <Form
-            form={
-              <LoginForm
-                onSubmit={onSubmit}
-                handleSubmit={handleSubmit}
-                show={show}
-                setShow={setShow}
-              />
-            }
-          />
-        </Page>
+          name="Login"
+          form={
+            <LoginForm
+              onSubmit={onSubmit}
+              handleSubmit={handleSubmit}
+              show={show}
+              setShow={setShow}
+            />
+          }
+        />
       }
     </>
   )
 }
 
 const Form = (props) => (
-
-  <section className="grid grid-rows-1 grid-cols-7 grid-flow-row-dense gap-6 px-8 w-full mb-6">
-    <div
-      className="row-span-1 col-start-2 col-end-4 
-        p-5 
-        text-white 
-        h-[24rem] 
-        bg-[url('https://live.staticflickr.com/1288/5183638812_d57e1f9721_b.jpg')] bg-top bg-cover bg-no-repeat 
-        rounded-lg border border-gray-200 shadow-md 
-        dark:bg-gray-800 dark:border-gray-700"
-    />
-    <div className="grid row-span-1 col-span-3">
+  <Page
+    title={props.title}
+  >
+    <Section>
+      <H2
+        name={props.name}
+        margin="-4px"
+      />
       {props.form}
-    </div>
-  </section>
-
+    </Section>
+  </Page>
 );
 
 const LoginForm = ({ onSubmit, handleSubmit, show, setShow }) => (
-  <form
-    onSubmit={handleSubmit(onSubmit)}
-    className="flex flex-col gap-4"
-  >
-    <Label
-      for="email"
-      name="Email address"
-    />
-    <Input
-      id="email"
-      type="email"
-      placeholder="Enter email"
-    />
-    <Label
-      for="password"
-      name="Password"
-    />
-    <Input
-      id="password"
-      type="password"
-      placeholder="Password"
-    />
-    <div className="flex items-center mb-6">
-      <Checkbox
-        id="check"
+  <form onSubmit={handleSubmit(onSubmit)}>
+    <Container>
+      <Label
+        for="email"
+        name="Email address"
+      />
+      <Input
+        id="email"
+        type="email"
+        placeholder="Enter email"
       />
       <Label
-        for="check"
-        name="Remember me"
-        style={{ marginTop: "8px" }}
+        for="password"
+        name="Password"
       />
-    </div>
-    <Button
-      name="Sign in"
-    />
-    <Path
-      description="Not a member?&nbsp;"
-      path="/register"
-      name="Register"
-      show={show}
-      setShow={setShow}
-    />
-  </form>
-)
-
-
-const RegisterForm = ({ onSubmit, handleSubmit, show, setShow }) => (
-  <form
-    onSubmit={handleSubmit(onSubmit)}
-    className="flex flex-col gap-4"
-  >
-    <Label
-      for="email"
-      name="Email address"
-    />
-    <Input
-      id="email"
-      type="email"
-      placeholder="Enter email"
-    />
-    <Label
-      for="password"
-      name="Password"
-    />
-    <div className="grid grid-cols-2 gap-x-4 gap-y-2 mb-6">
       <Input
         id="password"
         type="password"
         placeholder="Password"
-        describedby="passwordHelp"
+      />
+      <div className="flex items-center mb-6">
+        <Checkbox
+          id="check"
+          click={showPassword}
+        />
+        <Label
+          for="check"
+          click={!showPassword}
+          name="Show password"
+          style={{ marginTop: "8px" }}
+        />
+
+      </div>
+      <Button
+        name="Sign in"
+      />
+      <Path
+        description="Not a member?&nbsp;"
+        path="/register"
+        name="Register"
+        show={show}
+        setShow={setShow}
+      />
+    </Container>
+  </form>
+);
+
+const RegisterForm = ({ onSubmit, handleSubmit, show, setShow }) => (
+  <form onSubmit={handleSubmit(onSubmit)}>
+    <Container>
+      <Label
+        for="email"
+        name="Email address"
       />
       <Input
-        id="password-repeat"
-        type="password"
-        placeholder="Repeat password"
-        describedby="passwordHelp"
+        id="email"
+        type="email"
+        placeholder="Enter email"
       />
-      <small
-        id="passwordHelp"
-        className="block mt-1 text-xs text-gray-600">
-        Enter at least 8 characters.
-      </small>
-    </div>
-    <Button
-      name="Sign up"
-    />
-    <Path
-      description="Already a member?&nbsp;"
-      path="/login"
-      name="Login"
-      show={show}
-      setShow={setShow}
-    />
+      <Label
+        for="password"
+        name="Password"
+      />
+      <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+        <Input
+          id="password"
+          type="password"
+          placeholder="Password"
+          describedby="passwordHelp"
+        />
+        <Input
+          id="password-repeat"
+          type="password"
+          placeholder="Repeat password"
+          describedby="passwordHelp"
+        />
+        <small
+          id="passwordHelp"
+          className="block mt-1 text-xs text-gray-600">
+          Enter at least 8 characters.
+        </small>
+      </div>
+      <div className="flex items-center mb-6">
+        <Checkbox
+          id="check"
+          click={showPassword}
+        />
+        <Label
+          for="check"
+          click={!showPassword}
+          name="Show password"
+          style={{ marginTop: "8px" }}
+        />
+      </div>
+      <Button
+        name="Sign up"
+      />
+      <Path
+        description="Already a member?&nbsp;"
+        path="/login"
+        name="Login"
+        show={show}
+        setShow={setShow}
+      />
+    </Container>
   </form>
-)
+);
