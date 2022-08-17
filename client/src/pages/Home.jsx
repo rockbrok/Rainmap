@@ -1,5 +1,6 @@
 import { t } from 'i18next';
 import {useState, useEffect} from 'react';
+import axios from 'axios';
 
 // components
 import { Page } from '../App';
@@ -7,16 +8,29 @@ import { Page } from '../App';
 export default function Home() {
   const [data, setData] = useState([{}]);
 
-  useEffect(() => {
-    fetch("/").then(
-      res => res.json()
-    ).then (
-      data => {
-        setData(data)
-        console.log(data)
-      }
-    )
-  }, [])
+  function getData() {
+    axios({
+      method: "GET",
+      url:"/members",
+    })
+    .then((response) => {
+      const res =response.data
+      console.log(res)
+      setData(({
+        profile_name: res.members[0],
+        about_me: res.about}))
+    }).catch((error) => {
+      if (error.response) {
+        console.log(error.response)
+        console.log(error.response.status)
+        console.log(error.response.headers)
+        }
+    })}
+
+    useEffect(() => {
+      getData();
+    }, [])
+
   return (
     <Page
       title={`Rainmap`}
@@ -32,7 +46,8 @@ export default function Home() {
             justifyContent: "center",
             alignItems: "center"
           }}
-          title={t("home.card1.title")}
+          // title={t("home.card1.title")}
+          title={data.profile_name}
           children={<List />}
         />
         <Card

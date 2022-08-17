@@ -1,4 +1,4 @@
-from msilib import Directory
+
 import os
 from flask import Flask, render_template, request, url_for, redirect, request
 import sqlite3
@@ -9,7 +9,7 @@ app = Flask(__name__)
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 
-@app.route('/')
+@app.route('/members')
 def index():
     members = {'members': ['Member1', 'Member2', 'Member3']}
     return members
