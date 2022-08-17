@@ -1,9 +1,13 @@
 import { Label, Input, Button, Select } from '../components/Form';
+import { useForm } from 'react-hook-form';
 
 // components
 import { Page } from '../App';
 
 export default function Upload() {
+  const { handleSubmit, formState: { errors } } = useForm();
+  const onSubmit = (data) => console.log(data);
+  
   return (
     <Page
       title={`Rainmap | Upload`}
@@ -15,7 +19,7 @@ export default function Upload() {
             Contribute to the Rainmap database
           </p>
           <div className="rounded border border-gray-200 p-6 w-[448px]">
-            <div className="grid grid-cols-6 gap-6">
+            <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-6 gap-6">
               <div className="col-span-6">
                 <Label
                   for="file"
@@ -65,7 +69,7 @@ export default function Upload() {
                   name="Submit"
                 />
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </section>
