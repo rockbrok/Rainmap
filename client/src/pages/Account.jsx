@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 // components
-import { Page, Container } from '../App';
-import { Label, Input, Button, Checkbox } from '../components/Form';
+import { Page, Section, Container, H2 } from '../App';
+import { Label, Input, Button, Checkbox, showPassword } from '../components/Form';
 
 export default function Account() {
   const [show, setShow] = useState(false);
@@ -20,57 +20,74 @@ export default function Account() {
     <Page
       title={`Rainmap | Account`}
     >
-      <section className="flex flex-col items-center">
-        <div className="flex flex-col gap-6 items-center my-8 px-8 max-w-lg text-gray-700">
-          {show ?
-            <Delete
-              agree={agree}
-              setAgree={setAgree}
-              cancel={cancel}
-              onSubmit={onSubmit}
-              handleSubmit={handleSubmit}
-            />
-            :
-            <Info
-              show={show}
-              setShow={setShow}
-              onSubmit={onSubmit}
-              handleSubmit={handleSubmit}
-            />
-          }
-        </div>
-      </section>
+      <Section>
+        {show ?
+          <Delete
+            agree={agree}
+            setAgree={setAgree}
+            cancel={cancel}
+            onSubmit={onSubmit}
+            handleSubmit={handleSubmit}
+          />
+          :
+          <Info
+            show={show}
+            setShow={setShow}
+            onSubmit={onSubmit}
+            handleSubmit={handleSubmit}
+          />
+        }
+      </Section>
     </Page>
   )
 }
 
 const Info = ({ show, setShow, onSubmit, handleSubmit }) => (
   <>
-    <h2 className="text-xl">Account</h2>
+    <H2
+      name="Account"
+      margin="-4px"
+    />
     <p>Manage your data</p>
     <form onSubmit={handleSubmit(onSubmit)}>
       <Container>
         <EditInput
           id="email"
-          name="Email"
+          name="Update email"
           type="email"
           value={`name@email.com`}
         />
         <EditInput
           id="password"
-          name="Password"
+          name="Update password"
+          placeholder="Enter new password"
           type="password"
-          value={`password`}
         />
-        <Input
-          id="password-repeat"
-          type="password"
-          placeholder="Repeat password"
+        <div className="mt-3">
+          <Input
+            id="password-repeat"
+            type="password"
+            placeholder="Repeat password"
+          />
+        </div>
+        <div className="flex items-center mb-6">
+        <Checkbox
+          id="check"
+          click={showPassword}
         />
-        <Button
-          name="Save changes"
-          disabled="disabled"
+        <Label
+          for="check"
+          click={!showPassword}
+          name="Show password"
+          style={{ marginTop: "8px" }}
         />
+      </div>
+
+          <Button
+            name="Save changes"
+            disabled="disabled"
+          />
+
       </Container>
     </form>
     <Container>
@@ -122,8 +139,6 @@ const Delete = ({ agree, setAgree, cancel, onSubmit, handleSubmit }) => (
   </form>
 );
 
-
-
 const EditInput = (props) => (
   <div>
     <Label
@@ -135,6 +150,7 @@ const EditInput = (props) => (
         id={props.id}
         type={props.type}
         value={props.value}
+        placeholder={props.placeholder}
         style={{ marginRight: "-50px" }}
       />
       <button

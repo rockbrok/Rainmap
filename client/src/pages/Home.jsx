@@ -46,8 +46,8 @@ export default function Home() {
             justifyContent: "center",
             alignItems: "center"
           }}
-          // title={t("home.card1.title")}
-          title={data.profile_name}
+          title={t("home.card1.title")}
+          // title={data.profile_name}
           children={<List />}
         />
         <Card
@@ -58,13 +58,12 @@ export default function Home() {
             gridColumn: "span 2 / span 2",
             justifyContent: "center"
           }}
-          className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
           title={t("home.card2.title")}
           button={<Button />}
         />
         <Card
           style={{
-            backgroundImage: "url('https://upload.wikimedia.org/wikipedia/commons/3/34/Rain_nd_hill.jpg')",
+            backgroundImage: "linear-gradient(to right, #5b9ab3, #7da9ba)",
             backgroundPosition: "bottom",
             height: "20rem",
             justifyContent: "center"
@@ -73,8 +72,8 @@ export default function Home() {
             userSelect: "none",
             cursor: "pointer"
           }}
-          hover={<div className="flex justify-center select-none items-center z-10 opacity-0 bg-gradient-to-t cursor-pointer rounded-lg from-gray-800 via-gray-800 to-opacity-30 group-hover:opacity-50 absolute top-0 left-0 h-full w-full" />}
-          title={t("home.card3")}
+          hover={<div className="flex justify-center select-none items-center z-10 opacity-0 cursor-pointer rounded-lg absolute top-0 left-0 h-full w-full" />}
+          title="All sounds"
         />
         <Card
           style={{
@@ -87,7 +86,7 @@ export default function Home() {
             userSelect: "none",
             cursor: "pointer"
           }}
-          hover={<div className="flex justify-center items-center z-10 opacity-0 bg-gradient-to-t cursor-pointer rounded-lg from-gray-800 via-gray-800 to-opacity-30 group-hover:opacity-50 absolute top-0 left-0 h-full w-full" />}
+          hover={<div className="flex justify-center select-none items-center z-10 opacity-0 cursor-pointer rounded-lg absolute top-0 left-0 h-full w-full" />}
           title={t("home.card4")}
         />
       </section>

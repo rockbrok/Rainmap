@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 export const Label = (props) => (
   <label 
       htmlFor={props.for}
+      onClick={props.click}
       className="form-label inline-block mb-2 text-gray-700"
       style={props.style}
     >
@@ -122,6 +123,7 @@ export const Checkbox = (props) => {
         { required: true })
       }
       type="checkbox"
+      onClick={props.click}
       id={props.id}
       value={props.value}
       style={props.style}
@@ -141,4 +143,21 @@ export const Checkbox = (props) => {
         cursor-pointer"
     />
   )
-}
+};
+
+export function showPassword() {
+  var x = document.getElementById("password");
+
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+  var y = document.getElementById("password-repeat");
+
+  if (y.type === "password") {
+    y.type = "text";
+  } else {
+    y.type = "password";
+  }
+};

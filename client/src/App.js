@@ -45,8 +45,20 @@ export const Page = (props) => (
   </>
 );
 
+export const Section = (props) => (
+  <section className="flex flex-col items-center">
+    <div className="flex flex-col gap-6 items-center my-8 px-8 max-w-lg text-gray-700">
+      {props.children}
+    </div>
+  </section>
+);
+
 export const Container = (props) => (
-  <div className="flex flex-col rounded border border-gray-200 p-6 w-[448px] gap-6">
+  <div className="flex flex-col rounded border border-gray-200 p-6 w-[448px] gap-3">
     {props.children}
   </div>
+);
+
+export const H2 = (props) => (
+  <h2 className="text-xl mb-6 text-center" style={{ marginBottom: props.margin }}>{props.name}</h2>
 );

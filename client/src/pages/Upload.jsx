@@ -1,74 +1,73 @@
 import { Label, Input, Button, Select } from '../components/Form';
+import { useForm } from 'react-hook-form';
 
 // components
-import { Page } from '../App';
+import { Page, Section, Container, H2 } from '../App';
 
 export default function Upload() {
+  const { handleSubmit, formState: { errors } } = useForm();
+  const onSubmit = (data) => console.log(data);
+
   return (
     <Page
       title={`Rainmap | Upload`}
     >
-      <section className="flex flex-col items-center">
-        <div className="flex flex-col gap-6 items-center my-8 px-8 max-w-lg text-gray-700">
-          <h2 className="text-xl">Upload audio</h2>
-          <p>
-            Contribute to the Rainmap database
-          </p>
-          <div className="rounded border border-gray-200 p-6 w-[448px]">
-            <div className="grid grid-cols-6 gap-6">
-              <div className="col-span-6">
-                <Label
-                  for="file"
-                  name="Choose a file"
-                />
-                <Input
-                  id="file"
-                  type="file"
-                  placeholder="No file chosen"
-                />
-              </div>
-              <div className="col-span-3">
-                <Label
-                  for="country"
-                  name="Country / Region"
-                />
-                <SelectCountry />
-              </div>
-              <div className="col-span-3">
-                <Label
-                  for="city"
-                  name="City"
-                />
-                <Input
-                  id="city"
-                  type="text"
-                  placeholder="Enter city"
-                />
-              </div>
-              <div className="col-span-3">
-                <Label
-                  for="rain"
-                  name="Rain type"
-                />
-                <Select
-                  id="rain"
-                >
-                  <option value="" disabled selected hidden>Select a type</option>
-                  <option>Hard rain</option>
-                  <option>Soft rain</option>
-                  <option>Hybrid rain</option>
-                  <option>Thunder</option>
-                </Select>
-              </div>
-              <div className="col-span-6">
-                <Button
-                  name="Submit"
-                />
-              </div>
+      <Section>
+        <H2
+          name="Upload audio"
+          margin="-4px"
+        />
+        <p>
+          Contribute to the Rainmap database
+        </p>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Container>
+            <Label
+              for="file"
+              name="Choose a file"
+            />
+            <Input
+              id="file"
+              type="file"
+              placeholder="No file chosen"
+            />
+            <div className="grid grid-cols-2 gap-x-4 gap-y-3">
+              <Label
+                for="country"
+                name="Country / Region"
+              />
+              <Label
+                for="city"
+                name="City"
+              />
+              <SelectCountry />
+              <Input
+                id="city"
+                type="text"
+                placeholder="Enter city"
+              />
             </div>
-          </div>
-        </div>
-      </section>
+            <Label
+              for="rain"
+              name="Rain type"
+            />
+            <Select
+              id="rain"
+            >
+              <option value="" disabled selected hidden>Select a type</option>
+              <option>Hard rain</option>
+              <option>Soft rain</option>
+              <option>Hybrid rain</option>
+              <option>Thunder</option>
+            </Select>
+            <div className="mt-6">
+              <Button
+                name="Submit"
+              />
+            </div>
+          </Container>
+        </form>
+      </Section>
     </Page>
   )
 }
@@ -318,4 +317,4 @@ const SelectCountry = () => (
     <option value="Zambia">Zambia</option>
     <option value="Zimbabwe">Zimbabwe</option>
   </Select>
-)
+);
