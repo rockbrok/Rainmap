@@ -22,6 +22,7 @@ export const Input = (props) => {
       type={props.type}
       id={props.id}
       value={props.value}
+      onChange={props.change}
       style={props.style}
       aria-describedby={props.describedby}
       placeholder={props.placeholder}

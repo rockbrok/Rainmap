@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { Label, Input, Button, Path, Checkbox, showPassword } from '../components/Form';
 import { t } from 'i18next';
+import axios from 'axios';
 
 // components
 import { Page, Section, Container, H2 } from '../App';
@@ -9,7 +10,36 @@ import { Page, Section, Container, H2 } from '../App';
 export default function Login() {
   const [show, setShow] = useState(false);
   const { handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = (data) => console.log(data);
+
+  const [value, setValue] = useState({
+    email: '',
+    password: '',
+    passwordRepeat: '',
+  })
+
+  const handleChange = (e) => {
+    setValue({
+      ...value,
+      [e.target.name]: e.target.value
+    });
+  }
+
+  const onSubmit = async() => {
+    try {
+      await axios({
+        method: "post",
+        url: "/register",
+        data: {
+          email: value.email,
+          password: value.password,
+          passwordRepeat: value.passwordRepeat,
+        },
+        headers: { "Content-Type": "application/json"},
+      });
+    } catch(error) {
+      console.log(error.response.data)
+    }
+  }
 
   return (
     <>
@@ -20,7 +50,9 @@ export default function Login() {
           form={
             <RegisterForm
               onSubmit={onSubmit}
+              handleChange={handleChange}
               handleSubmit={handleSubmit}
+              value={value}
               show={show}
               setShow={setShow}
             />
@@ -106,7 +138,7 @@ const LoginForm = ({ onSubmit, handleSubmit, show, setShow }) => (
   </form>
 );
 
-const RegisterForm = ({ onSubmit, handleSubmit, show, setShow }) => (
+const RegisterForm = ({ onSubmit, handleSubmit, show, setShow, handleChange, value }) => (
   <form onSubmit={handleSubmit(onSubmit)}>
     <Container>
       <Label
@@ -116,6 +148,8 @@ const RegisterForm = ({ onSubmit, handleSubmit, show, setShow }) => (
       <Input
         id="email"
         type="email"
+        change={handleChange}
+        value={value.email}
         placeholder="Enter email"
       />
       <Label
@@ -126,12 +160,16 @@ const RegisterForm = ({ onSubmit, handleSubmit, show, setShow }) => (
         <Input
           id="password"
           type="password"
+          change={handleChange}
+          value={value.password}
           placeholder="Password"
           describedby="passwordHelp"
         />
         <Input
-          id="password-repeat"
+          id="passwordRepeat"
           type="password"
+          change={handleChange}
+          value={value.passwordRepeat}
           placeholder="Repeat password"
           describedby="passwordHelp"
         />
