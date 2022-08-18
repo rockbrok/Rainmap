@@ -1,11 +1,9 @@
-
 import os
 import uuid
 import sqlite3
 
-from flask import Flask, request, url_for, redirect, request
+from flask import Flask, request, url_for, redirect
 from werkzeug.security import check_password_hash, generate_password_hash
-from dotenv import load_dotenv
 
 app = Flask(__name__)
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -17,35 +15,31 @@ def index():
     return members
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/register', methods=['POST'])
 def register():
-    if request.method == 'POST':
-        connection = sqlite3.connect(current_dir + '\\rain.db')
-        cur = connection.cursor()
-        request = request.get_json()
-        
-        email = request['email']
-        print('email: ' + email)
-        
-        # TODO get name from form.get
-        #name = "bob"
-        # TODO name checks
-        
-        hash = generate_password_hash(request['password'])
-        print('hash: ' + hash)
-        # TODO push password through many checks to make sure it meets the requirements
-        
-        myuuid = uuid.uuid4()
-        print('uuid: ' + str(myuuid))
-        
-        # Updating database information
-        #cur.execute('INSERT INTO users (id, email, hash) VALUES(?, ?, ?)', (int(uuid), str(email), str(hash)))
-        
-        connection.commit()
-        connection.close()
-        return 'register'
-    else:
-        return 'register'
+    connection = sqlite3.connect(current_dir + '\\rain.db')
+    cur = connection.cursor()
+    data = request.json
+    # print(data)
+    
+    email = data['email']
+    print('email: ' + str(email))
+    
+    # TODO email checks
+    
+    hash = generate_password_hash(data['password'])
+    print('hash: ' + hash)
+    # TODO push password through many checks to make sure it meets the requirements
+    
+    myuuid = uuid.uuid4()
+    print('uuid: ' + str(myuuid))
+    
+    # Updating database information
+    #cur.execute('INSERT INTO users (id, email, hash) VALUES(?, ?, ?)', (int(uuid), str(email), str(hash)))
+    
+    connection.commit()
+    connection.close()
+    return 'register'
 
 
 def error_return(error):
