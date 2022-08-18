@@ -1,7 +1,9 @@
 
 import os
-from flask import Flask, render_template, request, url_for, redirect, request
+import uuid
 import sqlite3
+
+from flask import Flask, request, url_for, redirect, request
 from werkzeug.security import check_password_hash, generate_password_hash
 from dotenv import load_dotenv
 
@@ -18,24 +20,26 @@ def index():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        cur = connection.cursor()
         connection = sqlite3.connect(current_dir + '\\rain.db')
+        cur = connection.cursor()
+        request = request.get_json()
+        
+        email = request['email']
+        print('email: ' + email)
         
         # TODO get name from form.get
         #name = "bob"
         # TODO name checks
         
-        # TODO make password hash take data from form.get
-        hash = generate_password_hash('password')
+        hash = generate_password_hash(request['password'])
+        print('hash: ' + hash)
         # TODO push password through many checks to make sure it meets the requirements
         
-        # TODO ID randomizer of length 19
-        id = 8491037834009735514
-        if len(str(id)) != 19:
-            return error_return('irregular id length')
+        myuuid = uuid.uuid4()
+        print('uuid: ' + str(myuuid))
         
         # Updating database information
-        #cur.execute('INSERT INTO users (id, username, hash) VALUES(?, ?, ?)', (int(id), str(name), hash))
+        #cur.execute('INSERT INTO users (id, email, hash) VALUES(?, ?, ?)', (int(uuid), str(email), str(hash)))
         
         connection.commit()
         connection.close()
