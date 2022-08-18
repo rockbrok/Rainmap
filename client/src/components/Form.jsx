@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 export const Label = (props) => (
   <label 
       htmlFor={props.for}
-      onClick={props.click}
+      onClick={() => props.click}
       className="form-label inline-block mb-2 text-gray-700"
       style={props.style}
     >
@@ -17,7 +17,13 @@ export const Input = (props) => {
   return (
     <input {
       ...register(props.id,
-        { required: true })
+        { required: props.reqMessage,
+        minLength: {
+          value: props.minLengthVal,
+          message: props.minLengthMessage
+        },
+        validate: value =>
+        value === props.validateVal || props.validateMessage })
       }
       type={props.type}
       id={props.id}
