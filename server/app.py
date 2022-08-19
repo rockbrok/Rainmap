@@ -4,6 +4,7 @@ import sqlite3
 
 from flask import Flask, request, url_for, redirect
 from werkzeug.security import check_password_hash, generate_password_hash
+from helpers import *
 
 app = Flask(__name__)
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -17,34 +18,35 @@ def index():
 
 @app.route('/register', methods=['POST'])
 def register():
-    connection = sqlite3.connect(current_dir + '\\rain.db')
-    cur = connection.cursor()
+    db = sqlite3.connect(current_dir + '\\rain.db')
     data = request.json
-    # print(data)
     
-    email = data['email']
-    print('email: ' + str(email))
+    row = db.execute('SELECT email FROM users WHERE email = ?', [data['email']])
+    query = row.fetchone()
     
-    # TODO email checks
+    if query is not None:
+        return apology('email already in use')
     
+    if not psw_can_be_processed(data['password']):
+        return apology('password must include a number and be between 9 and 256 characers')
     hash = generate_password_hash(data['password'])
-    print('hash: ' + hash)
-    # TODO push password through many checks to make sure it meets the requirements
     
     myuuid = uuid.uuid4()
-    print('uuid: ' + str(myuuid))
     
     # Updating database information
-    #cur.execute('INSERT INTO users (id, email, hash) VALUES(?, ?, ?)', (int(uuid), str(email), str(hash)))
+    db.execute('INSERT INTO users (uuid, email, hash) VALUES(?, ?, ?)', 
+               (str(myuuid), str(data['email']), str(hash)))
     
-    connection.commit()
-    connection.close()
+    db.commit()
+    db.close()
     return 'register'
 
 
-def error_return(error):
-    return ('An error has occured: ' + str(error))
-
+@app.route('/login', methods=['POST'])
+def login():
+    print('in login')
+    print(request.json)
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
