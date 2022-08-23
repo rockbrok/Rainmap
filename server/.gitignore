@@ -1,5 +1,7 @@
+/__pycache__
+/env
+/myenv
+
 /sqlite3
 /sqldiff
 /sqlite3_analyzer
-
-/__pycache__
