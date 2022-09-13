@@ -4,7 +4,6 @@ import { Helmet } from "react-helmet";
 // pages
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Map from "./pages/Map";
 import About from "./pages/About";
 import Account from "./pages/Account";
 import Upload from "./pages/Upload";
@@ -19,12 +18,11 @@ export default function App() {
     <Router basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/account" element={<Account />} />
+        {/* <Route path="/login" element={<Login />} /> */}
+        {/* <Route path="/account" element={<Account />} /> */}
         <Route path="/upload" element={<Upload />} />
         <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/map" element={<Map />} />
+        {/* <Route path="/contact" element={<Contact />} /> */}
       </Routes>
     </Router>
   );
@@ -60,5 +58,10 @@ export const Container = (props) => (
 );
 
 export const H2 = (props) => (
-  <h2 className="text-xl mb-6 text-center" style={{ marginBottom: props.margin }}>{props.name}</h2>
+  <h2
+    className="text-xl mb-6 text-center"
+    style={{ marginBottom: props.margin }}
+  >
+    {props.name}
+  </h2>
 );

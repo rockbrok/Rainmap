@@ -1,82 +1,145 @@
-import { Label, Input, Button, Select } from '../components/Form';
-import { useForm } from 'react-hook-form';
+import { Label, Input, Button, Select } from "../components/Form";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 // components
-import { Page, Section, Container, H2 } from '../App';
+import { Page, Section, Container, H2 } from "../App";
 
 export default function Upload() {
-  const { handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const {
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const [type, setType] = useState("");
+  const [city, setCity] = useState("");
+  const [region, setRegion] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [selectFile, setSelectFile] = useState(null);
+
+  const onSubmit = async () => {
+    const URL =
+      "http://api.positionstack.com/v1/forward?access_key=" +
+      process.env.REACT_APP_POSITION_STACK_API_KEY +
+      "&query=" +
+      city +
+      "+" +
+      region;
+
+    const response = await axios.get(URL);
+
+    // console.log(response.data.data[0].latitude);
+    // console.log(response.data.data[0].longitude);
+
+    const formData = new FormData();
+    formData.append("file", selectFile);
+    formData.append("longitude", response.data.data[0].longitude);
+    formData.append("latitude", response.data.data[0].latitude);
+    formData.append("type", type);
+
+    await axios.post("/audio", formData);
+    setSuccess(true);
+  };
+
+  if (success === true) {
+    setTimeout(() => (window.location.href = "../rainmap"), 5000);
+  }
 
   return (
-    <Page
-      title={`Rainmap | Upload`}
-    >
-      <Section>
-        <H2
-          name="Upload audio"
-          margin="-4px"
-        />
-        <p>
-          Contribute to the Rainmap database
-        </p>
-        <form onSubmit={handleSubmit(onSubmit)}>
+    <Page title={`Rainmap | Upload`}>
+      {success ? (
+        <Section>
           <Container>
-            <Label
-              for="file"
-              name="Choose a file"
-            />
-            <Input
-              id="file"
-              type="file"
-              placeholder="No file chosen"
-            />
-            <div className="grid grid-cols-2 gap-x-4 gap-y-3">
-              <Label
-                for="country"
-                name="Country / Region"
-              />
-              <Label
-                for="city"
-                name="City"
-              />
-              <SelectCountry />
-              <Input
-                id="city"
-                type="text"
-                placeholder="Enter city"
-              />
-            </div>
-            <Label
-              for="rain"
-              name="Rain type"
-            />
-            <Select
-              id="rain"
-            >
-              <option value="" disabled selected hidden>Select a type</option>
-              <option>Hard rain</option>
-              <option>Soft rain</option>
-              <option>Hybrid rain</option>
-              <option>Thunder</option>
-            </Select>
-            <div className="mt-6">
-              <Button
-                name="Submit"
-              />
+            <div className="h-[398px] flex flex-col gap-2">
+              <div className="flex flex-col grow gap-2 justify-center items-center">
+                <span
+                  className="material-symbols-outlined"
+                  id="user"
+                  style={{
+                    filter:
+                      "invert(75%) sepia(14%) saturate(1052%) hue-rotate(95deg) brightness(92%) contrast(86%)",
+                    fontSize: "36px",
+                  }}
+                >
+                  check_circle
+                </span>
+                <span className="mt-2">Upload successful!</span>
+                <span>Thank you for contributing</span>
+              </div>
+              <div className="flex flex-row justify-between">
+                <Link to="/"></Link>
+                <button onClick={() => setSuccess(false)}>Upload again</button>
+              </div>
             </div>
           </Container>
-        </form>
-      </Section>
+        </Section>
+      ) : (
+        <Section>
+          <H2 name="Upload audio" margin="-4px" />
+          <p>Contribute to the Rainmap database</p>
+          <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
+            <Container>
+              <Label for="file" name="Choose a file" />
+              <Input
+                id="file"
+                type="file"
+                placeholder="No file chosen"
+                required
+                change={(e) => setSelectFile(e.target.files[0])}
+              />
+              <div className="grid grid-cols-2 gap-x-4 gap-y-3">
+                <Label for="country" name="Country / Region" />
+                <Label for="city" name="City" />
+                <SelectCountry region={region} setRegion={setRegion} />
+                <Input
+                  id="city"
+                  type="text"
+                  placeholder="Enter city"
+                  required
+                  value={city}
+                  change={(e) => setCity(e.target.value)}
+                />
+              </div>
+              <Label for="rain" name="Rain type" />
+              <Select
+                id="rain"
+                value={type}
+                change={(e) => {
+                  setType(e.target.value);
+                }}
+                required
+              >
+                <option value="" disabled hidden selected>
+                  Select a type
+                </option>
+                <option>Hard rain</option>
+                <option>Soft rain</option>
+                <option>Hybrid rain</option>
+                <option>Thunder</option>
+              </Select>
+              <div className="mt-6">
+                <Button name="Submit" />
+              </div>
+            </Container>
+          </form>
+        </Section>
+      )}
     </Page>
-  )
+  );
 }
 
-const SelectCountry = () => (
+const SelectCountry = ({ region, setRegion }) => (
   <Select
     id="country"
+    value={region}
+    change={(e) => setRegion(e.target.value)}
+    required
   >
-    <option value="" disabled hidden selected>Select a country</option>
+    <option value="" disabled hidden selected>
+      Select a country
+    </option>
     <option value="Afghanistan">Afghanistan</option>
     <option value="Albania">Albania</option>
     <option value="Algeria">Algeria</option>
@@ -107,7 +170,9 @@ const SelectCountry = () => (
     <option value="Botswana">Botswana</option>
     <option value="Bouvet Island">Bouvet Island</option>
     <option value="Brazil">Brazil</option>
-    <option value="British Indian Ocean Territory">British Indian Ocean Territory</option>
+    <option value="British Indian Ocean Territory">
+      British Indian Ocean Territory
+    </option>
     <option value="Brunei Darussalam">Brunei Darussalam</option>
     <option value="Bulgaria">Bulgaria</option>
     <option value="Burkina Faso">Burkina Faso</option>
@@ -126,7 +191,9 @@ const SelectCountry = () => (
     <option value="Colombia">Colombia</option>
     <option value="Comoros">Comoros</option>
     <option value="Congo">Congo</option>
-    <option value="Congo, The Democratic Republic of The">Congo, The Democratic Republic of The</option>
+    <option value="Congo, The Democratic Republic of The">
+      Congo, The Democratic Republic of The
+    </option>
     <option value="Cook Islands">Cook Islands</option>
     <option value="Costa Rica">Costa Rica</option>
     <option value="Cote D'ivoire">Cote D'ivoire</option>
@@ -145,14 +212,18 @@ const SelectCountry = () => (
     <option value="Eritrea">Eritrea</option>
     <option value="Estonia">Estonia</option>
     <option value="Ethiopia">Ethiopia</option>
-    <option value="Falkland Islands (Malvinas)">Falkland Islands (Malvinas)</option>
+    <option value="Falkland Islands (Malvinas)">
+      Falkland Islands (Malvinas)
+    </option>
     <option value="Faroe Islands">Faroe Islands</option>
     <option value="Fiji">Fiji</option>
     <option value="Finland">Finland</option>
     <option value="France">France</option>
     <option value="French Guiana">French Guiana</option>
     <option value="French Polynesia">French Polynesia</option>
-    <option value="French Southern Territories">French Southern Territories</option>
+    <option value="French Southern Territories">
+      French Southern Territories
+    </option>
     <option value="Gabon">Gabon</option>
     <option value="Gambia">Gambia</option>
     <option value="Georgia">Georgia</option>
@@ -169,8 +240,12 @@ const SelectCountry = () => (
     <option value="Guinea-bissau">Guinea-bissau</option>
     <option value="Guyana">Guyana</option>
     <option value="Haiti">Haiti</option>
-    <option value="Heard Island and Mcdonald Islands">Heard Island and Mcdonald Islands</option>
-    <option value="Holy See (Vatican City State)">Holy See (Vatican City State)</option>
+    <option value="Heard Island and Mcdonald Islands">
+      Heard Island and Mcdonald Islands
+    </option>
+    <option value="Holy See (Vatican City State)">
+      Holy See (Vatican City State)
+    </option>
     <option value="Honduras">Honduras</option>
     <option value="Hong Kong">Hong Kong</option>
     <option value="Hungary">Hungary</option>
@@ -188,11 +263,15 @@ const SelectCountry = () => (
     <option value="Kazakhstan">Kazakhstan</option>
     <option value="Kenya">Kenya</option>
     <option value="Kiribati">Kiribati</option>
-    <option value="Korea, Democratic People's Republic of">Korea, Democratic People's Republic of</option>
+    <option value="Korea, Democratic People's Republic of">
+      Korea, Democratic People's Republic of
+    </option>
     <option value="Korea, Republic of">Korea, Republic of</option>
     <option value="Kuwait">Kuwait</option>
     <option value="Kyrgyzstan">Kyrgyzstan</option>
-    <option value="Lao People's Democratic Republic">Lao People's Democratic Republic</option>
+    <option value="Lao People's Democratic Republic">
+      Lao People's Democratic Republic
+    </option>
     <option value="Latvia">Latvia</option>
     <option value="Lebanon">Lebanon</option>
     <option value="Lesotho">Lesotho</option>
@@ -215,7 +294,9 @@ const SelectCountry = () => (
     <option value="Mauritius">Mauritius</option>
     <option value="Mayotte">Mayotte</option>
     <option value="Mexico">Mexico</option>
-    <option value="Micronesia, Federated States of">Micronesia, Federated States of</option>
+    <option value="Micronesia, Federated States of">
+      Micronesia, Federated States of
+    </option>
     <option value="Moldova, Republic of">Moldova, Republic of</option>
     <option value="Monaco">Monaco</option>
     <option value="Mongolia">Mongolia</option>
@@ -240,7 +321,9 @@ const SelectCountry = () => (
     <option value="Oman">Oman</option>
     <option value="Pakistan">Pakistan</option>
     <option value="Palau">Palau</option>
-    <option value="Palestinian Territory, Occupied">Palestinian Territory, Occupied</option>
+    <option value="Palestinian Territory, Occupied">
+      Palestinian Territory, Occupied
+    </option>
     <option value="Panama">Panama</option>
     <option value="Papua New Guinea">Papua New Guinea</option>
     <option value="Paraguay">Paraguay</option>
@@ -259,7 +342,9 @@ const SelectCountry = () => (
     <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
     <option value="Saint Lucia">Saint Lucia</option>
     <option value="Saint Pierre and Miquelon">Saint Pierre and Miquelon</option>
-    <option value="Saint Vincent and The Grenadines">Saint Vincent and The Grenadines</option>
+    <option value="Saint Vincent and The Grenadines">
+      Saint Vincent and The Grenadines
+    </option>
     <option value="Samoa">Samoa</option>
     <option value="San Marino">San Marino</option>
     <option value="Sao Tome and Principe">Sao Tome and Principe</option>
@@ -274,7 +359,9 @@ const SelectCountry = () => (
     <option value="Solomon Islands">Solomon Islands</option>
     <option value="Somalia">Somalia</option>
     <option value="South Africa">South Africa</option>
-    <option value="South Georgia and The South Sandwich Islands">South Georgia and The South Sandwich Islands</option>
+    <option value="South Georgia and The South Sandwich Islands">
+      South Georgia and The South Sandwich Islands
+    </option>
     <option value="Spain">Spain</option>
     <option value="Sri Lanka">Sri Lanka</option>
     <option value="Sudan">Sudan</option>
@@ -286,7 +373,9 @@ const SelectCountry = () => (
     <option value="Syrian Arab Republic">Syrian Arab Republic</option>
     <option value="Taiwan, Province of China">Taiwan, Province of China</option>
     <option value="Tajikistan">Tajikistan</option>
-    <option value="Tanzania, United Republic of">Tanzania, United Republic of</option>
+    <option value="Tanzania, United Republic of">
+      Tanzania, United Republic of
+    </option>
     <option value="Thailand">Thailand</option>
     <option value="Timor-leste">Timor-leste</option>
     <option value="Togo">Togo</option>
@@ -303,7 +392,9 @@ const SelectCountry = () => (
     <option value="United Arab Emirates">United Arab Emirates</option>
     <option value="United Kingdom">United Kingdom</option>
     <option value="United States">United States</option>
-    <option value="United States Minor Outlying Islands">United States Minor Outlying Islands</option>
+    <option value="United States Minor Outlying Islands">
+      United States Minor Outlying Islands
+    </option>
     <option value="Uruguay">Uruguay</option>
     <option value="Uzbekistan">Uzbekistan</option>
     <option value="Vanuatu">Vanuatu</option>

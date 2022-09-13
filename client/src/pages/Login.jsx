@@ -1,19 +1,31 @@
-import axios from 'axios';
-import { useForm } from 'react-hook-form';
-import { useState } from 'react';
-import { Label, Input, Button, Path, Checkbox, showPassword } from '../components/Form';
-import { t } from 'i18next';
+import axios from "axios";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import {
+  Label,
+  Input,
+  Button,
+  Path,
+  Checkbox,
+  showPassword,
+} from "../components/Form";
+import { t } from "i18next";
 
 // components
-import { Page, Section, Container, H2 } from '../App';
+import { Page, Section, Container, H2 } from "../App";
 
 export default function Login() {
   const [show, setShow] = useState(false);
-  const { register, handleSubmit, formState: { errors }, watch } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm();
 
   return (
     <>
-      {show ?
+      {show ? (
         <Form
           title={`Rainmap | Register`}
           name="Register"
@@ -28,7 +40,7 @@ export default function Login() {
             />
           }
         />
-        :
+      ) : (
         <Form
           title={`Rainmap | Login`}
           name="Login"
@@ -40,60 +52,53 @@ export default function Login() {
             />
           }
         />
-      }
+      )}
     </>
-  )
+  );
 }
 
 const Form = (props) => (
-  <Page
-    title={props.title}
-  >
+  <Page title={props.title}>
     <Section>
-      <H2
-        name={props.name}
-        margin="-4px"
-      />
+      <H2 name={props.name} margin="-4px" />
       {props.form}
     </Section>
   </Page>
 );
 
 const LoginForm = ({ handleSubmit, show, setShow }) => {
-
   const onSubmit = async () => {
     try {
       await axios({
-        method: "get",
-        url: "/register",
+        method: "post",
+        url: "/login",
         data: {
+          email: login.email,
+          password: login.password,
         },
         headers: { "Content-Type": "application/json" },
       });
     } catch (error) {
-      console.log(error.response.data)
+      console.log(error.response.data);
     }
-  }
+  };
 
   const [login, setLogin] = useState({
-    email: '',
-    password: '',
-  })
+    email: "",
+    password: "",
+  });
 
   const handleChange = (e) => {
     setLogin({
       ...login,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Container>
-        <Label
-          for="email"
-          name="Email address"
-        />
+        <Label for="email" name="Email address" />
         <Input
           id="email"
           change={handleChange}
@@ -101,10 +106,7 @@ const LoginForm = ({ handleSubmit, show, setShow }) => {
           type="email"
           placeholder="Enter email"
         />
-        <Label
-          for="password"
-          name="Password"
-        />
+        <Label for="password" name="Password" />
         <Input
           id="password"
           change={handleChange}
@@ -113,21 +115,15 @@ const LoginForm = ({ handleSubmit, show, setShow }) => {
           placeholder="Password"
         />
         <div className="flex items-center mb-6">
-          <Checkbox
-            id="check"
-            click={showPassword}
-          />
+          <Checkbox id="check" click={showPassword} />
           <Label
             for="check"
             click={!showPassword}
             name="Show password"
             style={{ marginTop: "8px" }}
           />
-
         </div>
-        <Button
-          name="Sign in"
-        />
+        <Button name="Sign in" />
         <Path
           description="Not a member?&nbsp;"
           path="/register"
@@ -137,48 +133,44 @@ const LoginForm = ({ handleSubmit, show, setShow }) => {
         />
       </Container>
     </form>
-  )
-}
+  );
+};
 
 const RegisterForm = ({ watch, errors, handleSubmit, show, setShow }) => {
-
   const onSubmit = async () => {
     try {
       await axios({
         method: "post",
-        url: "/register",
+        url: "/users",
         data: {
           email: register.email,
-          password: register.password
+          password: register.password,
         },
         headers: { "Content-Type": "application/json" },
       });
     } catch (error) {
-      console.log(error.response.data)
+      console.log(error.response.data);
     }
-  }
+  };
 
   const [register, setRegister] = useState({
-    email: '',
-    password: '',
-  })
+    email: "",
+    password: "",
+  });
 
   const handleChange = (e) => {
     setRegister({
       ...register,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
-  }
+  };
 
   const password = watch("password", "");
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Container>
-        <Label
-          for="email"
-          name="Email address"
-        />
+        <Label for="email" name="Email address" />
         <Input
           id="email"
           type="email"
@@ -186,10 +178,7 @@ const RegisterForm = ({ watch, errors, handleSubmit, show, setShow }) => {
           value={register.email}
           placeholder="Enter email"
         />
-        <Label
-          for="password"
-          name="Password"
-        />
+        <Label for="password" name="Password" />
         <div className="grid grid-cols-2 gap-x-4 gap-y-2">
           <div>
             <Input
@@ -217,17 +206,12 @@ const RegisterForm = ({ watch, errors, handleSubmit, show, setShow }) => {
             />
             {/* {errors.passwordRepeat && <p>{errors.passwordRepeat.message}</p>} */}
           </div>
-          <small
-            id="passwordHelp"
-            className="block mt-1 text-xs text-gray-600">
+          <small id="passwordHelp" className="block mt-1 text-xs text-gray-600">
             Enter at least 8 characters.
           </small>
         </div>
         <div className="flex items-center mb-6">
-          <Checkbox
-            id="check"
-            click={showPassword}
-          />
+          <Checkbox id="check" click={showPassword} />
           <Label
             for="check"
             click={!showPassword}
@@ -235,9 +219,7 @@ const RegisterForm = ({ watch, errors, handleSubmit, show, setShow }) => {
             style={{ marginTop: "8px" }}
           />
         </div>
-        <Button
-          name="Sign up"
-        />
+        <Button name="Sign up" />
         <Path
           description="Already a member?&nbsp;"
           path="/login"
@@ -247,5 +229,5 @@ const RegisterForm = ({ watch, errors, handleSubmit, show, setShow }) => {
         />
       </Container>
     </form>
-  )
-}
+  );
+};

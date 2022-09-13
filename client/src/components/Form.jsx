@@ -1,34 +1,38 @@
-import { useForm } from 'react-hook-form';
+import { useForm } from "react-hook-form";
 
 export const Label = (props) => (
-  <label 
-      htmlFor={props.for}
-      onClick={() => props.click}
-      className="form-label inline-block mb-2 text-gray-700"
-      style={props.style}
-    >
-      {props.name}
+  <label
+    htmlFor={props.for}
+    onClick={() => props.click}
+    className="form-label inline-block mb-2 text-gray-700"
+    style={props.style}
+  >
+    {props.name}
   </label>
 );
 
 export const Input = (props) => {
-  const { register, formState: { errors } } = useForm();
+  const {
+    register,
+    formState: { errors },
+  } = useForm();
 
   return (
-    <input {
-      ...register(props.id,
-        { required: props.reqMessage,
+    <input
+      {...register(props.id, {
+        required: props.reqMessage,
         minLength: {
           value: props.minLengthVal,
-          message: props.minLengthMessage
+          message: props.minLengthMessage,
         },
-        validate: value =>
-        value === props.validateVal || props.validateMessage })
-      }
+        validate: (value) =>
+          value === props.validateVal || props.validateMessage,
+      })}
       type={props.type}
       id={props.id}
       value={props.value}
       onChange={props.change}
+      required={props.required}
       style={props.style}
       aria-describedby={props.describedby}
       placeholder={props.placeholder}
@@ -45,22 +49,26 @@ export const Input = (props) => {
         transition
         ease-in-out
         m-0
-        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+        focus:text-gray-700 focus:bg-white focus:border-[#1A759F] focus:outline-none"
     />
-  )
-}
+  );
+};
 
 export const Select = (props) => {
-  const { register, formState: { errors } } = useForm();
+  const {
+    register,
+    formState: { errors },
+  } = useForm();
 
   return (
-    <select {
-      ...register(props.id,
-        { required: true })
-      }
+    <select
+      {...register(props.id, { required: true })}
       id={props.id}
       aria-describedby={props.describedby}
       autoComplete={props.autoComplete}
+      value={props.value}
+      required={props.required}
+      onChange={props.change}
       className="form-control block
         w-full
         px-3
@@ -74,12 +82,12 @@ export const Select = (props) => {
         transition
         ease-in-out
         m-0
-        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+        focus:text-gray-700 focus:bg-white focus:border-[#1A759F] focus:outline-none"
     >
       {props.children}
     </select>
-  )
-}
+  );
+};
 
 export const Button = (props) => (
   <button
@@ -90,7 +98,7 @@ export const Button = (props) => (
     className="w-full
       px-6
       py-2.5
-      bg-blue-600
+      bg-[#1A759F]
       text-white
       font-medium
       text-xs
@@ -98,9 +106,9 @@ export const Button = (props) => (
       uppercase
       rounded
       shadow-md
-      hover:bg-blue-700 hover:shadow-lg
-      focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
-      active:bg-blue-800 active:shadow-lg
+      hover:bg-[#176b91] hover:shadow-lg
+      focus:bg-[#176b91] focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-[#184E77] active:shadow-lg
       transition
       duration-150
       ease-in-out"
@@ -114,7 +122,7 @@ export const Path = (props) => (
     {props.description}&nbsp;
     <button
       onClick={() => props.setShow(!props.show)}
-      className="text-blue-600 hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out"
+      className="text-[#1A759F] hover:text-[#176b91] focus:text-[#176b91] transition duration-200 ease-in-out"
     >
       {props.name}
     </button>
@@ -122,13 +130,14 @@ export const Path = (props) => (
 );
 
 export const Checkbox = (props) => {
-  const { register, formState: { errors } } = useForm();
+  const {
+    register,
+    formState: { errors },
+  } = useForm();
 
   return (
-    <input {
-      ...register(props.id,
-        { required: true })
-      }
+    <input
+      {...register(props.id, { required: true })}
       type="checkbox"
       onClick={props.click}
       id={props.id}
@@ -141,7 +150,7 @@ export const Checkbox = (props) => {
         border border-gray-300 
         rounded-sm 
         bg-white 
-        checked:bg-blue-600 checked:border-blue-600 
+        checked:bg-[#1A759F] checked:border-[#1A759F] 
         focus:outline-none 
         transition duration-200 
         bg-no-repeat bg-center bg-contain 
@@ -149,7 +158,38 @@ export const Checkbox = (props) => {
         mr-2 
         cursor-pointer"
     />
-  )
+  );
+};
+
+export const Radio = (props) => {
+  const {
+    register,
+    formState: { errors },
+  } = useForm();
+
+  return (
+    <input
+      {...register(props.id, { required: true })}
+      type="radio"
+      id={props.id}
+      value={props.value}
+      name={props.name}
+      style={props.style}
+      checked={props.checked}
+      className="
+        h-4 w-4 
+        border border-gray-300 
+        rounded-full
+        bg-white 
+        checked:bg-[#1A759F] checked:border-[#1A759F] checked:outline-none
+        focus:outline-none 
+        transition duration-200 
+        bg-no-repeat bg-center bg-contain 
+        float-left 
+        mr-2 
+        cursor-pointer"
+    />
+  );
 };
 
 export function showPassword() {
@@ -167,4 +207,4 @@ export function showPassword() {
   } else {
     y.type = "password";
   }
-};
+}
