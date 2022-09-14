@@ -23,12 +23,23 @@ export default function Navbar() {
         </Link>
 
         <ul className="flex items-center justify-center p-4 flex-row space-x-8 md:text-sm md:font-medium">
-          <Dropdown
+          <Link to="/upload" className="h-6 w-6">
+            <span
+              class="material-symbols-outlined cursor-pointer select-none"
+              style={{
+                filter:
+                  "invert(25%) sepia(10%) saturate(1382%) hue-rotate(177deg) brightness(99%) contrast(84%)",
+              }}
+            >
+              file_upload
+            </span>
+          </Link>
+          {/* <Dropdown
             setShow={setShowAccount}
             show={showAccount}
             icon="account_circle"
             component={<Account />}
-          />
+          /> */}
           <Dropdown
             setShow={setShowLanguage}
             show={showLanguage}
@@ -66,19 +77,19 @@ const Dropdown = (props) => (
 
 const Account = () => (
   <div className="absolute top-10 z-30 flex flex-col w-36 px-6 py-2.5 bg-white rounded border border-gray-200 shadow-md">
-    {/* <Path path="/login" name={t("nav.login")} />
+    <Path path="/login" name={t("nav.login")} />
     <hr className="my-3 border-gray-300" />
     <Path path="/account" name={t("account.account")} />
-    <hr className="my-3 border-gray-300" /> */}
+    <hr className="my-3 border-gray-300" />
     <Path path="/upload" name={t("account.upload")} />
     <div className="mb-3" />
-    {/* <hr className="my-3 border-gray-300" /> */}
-    {/* <button
+    <hr className="my-3 border-gray-300" />
+    <button
       style={{ fontFamily: "Roboto", fontWeight: "400" }}
       className="mb-3 text-center text-gray-700 md:hover:text-gray-900 dark:text-gray-400 md:dark:hover:text-white dark:hover:text-white"
     >
       {t("account.sign-out")}
-    </button> */}
+    </button>
   </div>
 );
 

@@ -11,7 +11,6 @@ import { Page } from "../App";
 export default function Home() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const [type, setType] = useState("/allaudio");
 
   function onChangeValue(event) {
@@ -63,28 +62,23 @@ const Cartogram = ({
   data,
   loading,
 }) => {
-  const [playing, setPlaying] = useState(false);
-  const [duration, setDuration] = useState("");
-  const audioRef = useRef();
+  // const LeafIcon = Leaflet.Icon.extend({
+  //   options: {},
+  // });
 
-  //  Create the Icon
-  const LeafIcon = Leaflet.Icon.extend({
-    options: {},
-  });
+  // const blueIcon = new LeafIcon({
+  //   iconUrl:
+  //     "https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|abcdef&chf=a,s,ee00FFFF",
+  //   // iconAnchor: null,
+  //   // popupAnchor: null,
+  //   // shadowUrl: null,
+  //   // shadowSize: null,
+  //   // shadowAnchor: null,
+  //   // iconSize: [32, 32],
+  //   // iconAnchor: [32, 64],
+  // });
 
-  const blueIcon = new LeafIcon({
-    iconUrl:
-      "https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|abcdef&chf=a,s,ee00FFFF",
-    // iconAnchor: null,
-    // popupAnchor: null,
-    // shadowUrl: null,
-    // shadowSize: null,
-    // shadowAnchor: null,
-    // iconSize: [32, 32],
-    // iconAnchor: [32, 64],
-  });
-
-  const [icon, setIcon] = useState(blueIcon);
+  // const [icon, setIcon] = useState(blueIcon);
 
   return (
     <div className="col-span-6 flex flex-col rounded border border-gray-200">
@@ -108,64 +102,21 @@ const Cartogram = ({
         }}
       >
         <TileLayer url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}" />
-
         {loading ? (
           "loading"
         ) : (
           <>
             {data.audio.map((data) => {
               let URL = "http://localhost:5000/audio/";
-              let audio = new Audio(URL + data.filename);
-
-              const onLoadedMetadata = () => {
-                if (audioRef.current) {
-                  setDuration(audioRef.current.duration);
-                }
-              };
-
-              const play = () => {
-                setPlaying(true);
-                audioRef.current.play();
-              };
-
-              const pause = () => {
-                setPlaying(false);
-                audioRef.current.pause();
-              };
-
               return (
                 <div key={data.id}>
                   <Marker
-                    icon={icon}
+                    // icon={icon}
                     position={[data.latitude, data.longitude]}
-                    eventHandlers={{
-                      mouseover: (event) => event.target.openPopup(),
-                    }}
                   >
                     <Popup closeButton={false}>
                       <span>{data.type}</span>
-                      {/* <span>{duration}</span> */}
-                      <span className="text-gray-500">3 mins</span>
-                      <button
-                        className="mt-1 ml-[-2px] justify-self-start w-7 h-7 active:outline-none"
-                        onClick={playing ? pause : play}
-                      >
-                        {playing ? (
-                          <span class="material-symbols-outlined icon">
-                            pause_circle
-                          </span>
-                        ) : (
-                          <span class="material-symbols-outlined icon">
-                            play_circle
-                          </span>
-                        )}
-
-                        <audio
-                          ref={audioRef}
-                          onLoadedMetadata={onLoadedMetadata}
-                          src={URL + data.filename}
-                        />
-                      </button>
+                      <AudioPlayer url={URL + data.filename} />
                     </Popup>
                   </Marker>
                 </div>
@@ -174,6 +125,65 @@ const Cartogram = ({
           </>
         )}
       </MapContainer>
+    </div>
+  );
+};
+
+const AudioPlayer = ({ url }) => {
+  const audioPlayer = useRef();
+  const [playing, setPlaying] = useState(false);
+  const [duration, setDuration] = useState();
+
+  const play = () => {
+    if (url) {
+      setPlaying(true);
+      audioPlayer.current.play();
+    }
+  };
+
+  const stop = () => {
+    if (url) {
+      audioPlayer.current.pause();
+      audioPlayer.current.currentTime = 0;
+    }
+  };
+
+  const onPlaying = () => {
+    if (audioPlayer.current.paused) setPlaying(false);
+  };
+
+  const onLoadedMetadata = () => {
+    if (audioPlayer.current) setDuration(audioPlayer.current.duration);
+  };
+
+  function durationSlice() {
+    if (duration < 60) return Math.ceil(duration) + " secs";
+    if (duration < 3600) return Math.ceil(duration / 60) + " mins";
+    else if (duration > 3600) return Math.ceil(duration / 3600) + " hours";
+  }
+
+  return (
+    <div className="flex flex-col">
+      <span className="text-gray-500">{durationSlice()}</span>
+      <div
+        onClick={!playing ? play : stop}
+        className="mt-1 ml-[-2px] h-7 w-7 cursor-pointer select-none"
+      >
+        <audio
+          src={url}
+          ref={audioPlayer}
+          onTimeUpdate={onPlaying}
+          onLoadedMetadata={onLoadedMetadata}
+        >
+          Your browser does not support the
+          <code>audio</code> element.
+        </audio>
+        {!playing ? (
+          <span className="material-symbols-outlined icon">play_circle</span>
+        ) : (
+          <span className="material-symbols-outlined icon">pause_circle</span>
+        )}
+      </div>
     </div>
   );
 };

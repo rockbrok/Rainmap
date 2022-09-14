@@ -3,17 +3,14 @@ from flask import Flask, jsonify, request, send_from_directory, redirect, url_fo
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 import uuid
-from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
-from werkzeug.security import check_password_hash, generate_password_hash
+# from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
+# from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 import os
-from os import path, environ
-import time
-import soundfile as sf
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
+app.config['SECRET_KEY'] = 'top secret key'
 app.config['UPLOAD_FOLDER'] = 'static/files/'
 ALLOWED_EXTENSIONS = {'mp3', 'mp4', 'wav', 'wma', 'aac', 'm4a'}
 app.config['SQLALCHEMY_BINDS'] = {
@@ -62,7 +59,6 @@ class Audio(db.Model):
   filename = db.Column(db.String)
   latitude = db.Column(db.String)
   longitude = db.Column(db.String)
-  duration = db.Column(db.String)
   type = db.Column(db.String)
 
 class AudioSchema(ma.SQLAlchemyAutoSchema):
@@ -127,8 +123,6 @@ def audio():
       filename_ext = filename[-4:]
       new_filename = str(uuid.uuid4()) + filename_ext
       file.save(os.path.join(app.config['UPLOAD_FOLDER'], new_filename))
-      # f = sf.SoundFile(filename)
-      # duration = format(f.frames / f.samplerate)
       new_audio = Audio(latitude=latitude, longitude=longitude, type=type, filename=new_filename)
       db.session.add(new_audio)
       db.session.commit()

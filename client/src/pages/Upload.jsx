@@ -43,9 +43,11 @@ export default function Upload() {
     setSuccess(true);
   };
 
-  if (success === true) {
-    setTimeout(() => (window.location.href = "../rainmap"), 5000);
-  }
+  useEffect(() => {
+    if (success === true) {
+      setTimeout(() => (window.location.href = "../rainmap"), 5000);
+    }
+  }, [success]);
 
   return (
     <Page title={`Rainmap | Upload`}>
@@ -68,10 +70,6 @@ export default function Upload() {
                 <span className="mt-2">Upload successful!</span>
                 <span>Thank you for contributing</span>
               </div>
-              <div className="flex flex-row justify-between">
-                <Link to="/"></Link>
-                <button onClick={() => setSuccess(false)}>Upload again</button>
-              </div>
             </div>
           </Container>
         </Section>
@@ -90,8 +88,8 @@ export default function Upload() {
                 change={(e) => setSelectFile(e.target.files[0])}
               />
               <div className="grid grid-cols-2 gap-x-4 gap-y-3">
-                <Label for="country" name="Country / Region" />
-                <Label for="city" name="City" />
+                <Label for="country" name="Country" />
+                <Label for="city" name="Region / City" />
                 <SelectCountry region={region} setRegion={setRegion} />
                 <Input
                   id="city"
