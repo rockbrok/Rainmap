@@ -1,52 +1,172 @@
-
+from datetime import datetime
+from flask import Flask, jsonify, request, send_from_directory, redirect, url_for, flash, send_file
+from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
+import uuid
+# from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
+# from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.utils import secure_filename
 import os
-from flask import Flask, render_template, request, url_for, redirect, request
-import sqlite3
-from werkzeug.security import check_password_hash, generate_password_hash
-from dotenv import load_dotenv
 
 app = Flask(__name__)
-current_dir = os.path.dirname(os.path.abspath(__file__))
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = 'top secret key'
+app.config['UPLOAD_FOLDER'] = 'static/files/'
+ALLOWED_EXTENSIONS = {'mp3', 'mp4', 'wav', 'wma', 'aac', 'm4a'}
+app.config['SQLALCHEMY_BINDS'] = {
+  # 'users': 'sqlite:///users.db',
+  'audio': 'sqlite:///audio.db'
+}
 
+db = SQLAlchemy(app)
+ma = Marshmallow(app)
 
-@app.route('/members')
-def index():
-    members = {'members': ['Member1', 'Member2', 'Member3']}
-    return members
+# login_manager = LoginManager()
+# login_manager.init_app(app)
+# login_manager.login_view = 'login'
 
+# class User(db.Model, UserMixin):
+#   __bind_key__ = 'users'
+#   __tablename__ = 'User'
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if request.method == 'POST':
-        cur = connection.cursor()
-        connection = sqlite3.connect(current_dir + '\\rain.db')
-        
-        # TODO get name from form.get
-        #name = "bob"
-        # TODO name checks
-        
-        # TODO make password hash take data from form.get
-        hash = generate_password_hash('password')
-        # TODO push password through many checks to make sure it meets the requirements
-        
-        # TODO ID randomizer of length 19
-        id = 8491037834009735514
-        if len(str(id)) != 19:
-            return error_return('irregular id length')
-        
-        # Updating database information
-        #cur.execute('INSERT INTO users (id, username, hash) VALUES(?, ?, ?)', (int(id), str(name), hash))
-        
-        connection.commit()
-        connection.close()
-        return 'register'
-    else:
-        return 'register'
+#   id = db.Column(db.Integer, primary_key=True)
+#   email = db.Column(db.String, unique=True)
+#   timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+#   password_hash = db.Column(db.String(128))
 
+#   @property
+#   def password(self):
+#     raise AttributeError('password is not a readable attribute!')
+  
+#   @password.setter
+#   def password(self, password):
+#     self.password_hash = generate_password_hash(password)
+  
+#   def verify_password(self, password):
+#     return check_password_hash(self.password_hash, password)
 
-def error_return(error):
-    return ('An error has occured: ' + str(error))
+# class UserSchema(ma.SQLAlchemyAutoSchema):
+#   class Meta:
+#     model = User
+#     load_instance = True
 
+class Audio(db.Model):
+  __bind_key__ = 'audio'
+  __tablename__ = 'audio'
+
+  id = db.Column(db.Integer, primary_key=True)
+  timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+  filename = db.Column(db.String)
+  latitude = db.Column(db.String)
+  longitude = db.Column(db.String)
+  type = db.Column(db.String)
+
+class AudioSchema(ma.SQLAlchemyAutoSchema):
+  class Meta:
+    model = Audio
+    load_instance = True
+
+db.create_all(bind=['audio'])
+# db.create_all(bind=['users'])
+
+def allowed_file(filename):
+  return '.' in filename and \
+    filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+# @app.route('/users', methods=['GET', 'POST'])
+# def users():
+#   if request.method == 'POST':
+#     user = User.query.filter_by(email=request.json['email']).first()
+#     if user:
+#       return 'Email already taken'
+#     else: 
+#       email = request.json['email']
+#       password_hash = request.json['password']
+#       new_user = User(email=email, password=password_hash)
+#       db.session.add(new_user)
+#       db.session.commit()
+#       return 'Success!'
+
+#   if request.method == 'GET':
+#     user_list = User.query.all()
+#     user_schema = UserSchema(many=True)
+#     output = user_schema.dump(user_list)
+#     return jsonify({'users': output})
+
+# @app.route('/login', methods=['GET', 'POST'])
+# def login():
+#   user = User.query.filter_by(email=request.json['email']).first()
+#   if user:
+#     if check_password_hash(user.password_hash, request.json['password']):
+#       login_user(user)
+#       return 'Login success!'
+#     else:
+#       return 'Wrong password - try again'
+#   else:
+#     return "User doesn't exist"
+
+@app.route('/audio', methods=['GET', 'POST'])
+def audio():
+  if request.method == 'POST':
+    longitude = request.values['longitude']
+    latitude = request.values['latitude']
+    type = request.values['type']
+    if 'file' not in request.files:
+      flash('No file part')
+      return redirect(request.url)
+    file = request.files['file']
+    if file.filename == '':
+      flash('No selected file')
+      return redirect(request.url)
+    if file and allowed_file(file.filename):
+      filename = secure_filename(file.filename)
+      filename_ext = filename[-4:]
+      new_filename = str(uuid.uuid4()) + filename_ext
+      file.save(os.path.join(app.config['UPLOAD_FOLDER'], new_filename))
+      new_audio = Audio(latitude=latitude, longitude=longitude, type=type, filename=new_filename)
+      db.session.add(new_audio)
+      db.session.commit()
+      return 'Upload successful'
+    return 'Error'
+
+@app.route('/allaudio', methods=['GET'])
+def allaudio():
+  audio_list = Audio.query.all()
+  audio_schema = AudioSchema(many=True)
+  output = audio_schema.dump(audio_list)
+  return jsonify({'audio': output})
+
+@app.route('/softrain', methods=['GET'])
+def softrain():
+  audio_list = Audio.query.filter_by(type = 'Soft rain')
+  audio_schema = AudioSchema(many=True)
+  output = audio_schema.dump(audio_list)
+  return jsonify({'audio': output})
+
+@app.route('/thunder', methods=['GET'])
+def thunder():
+  audio_list = Audio.query.filter_by(type = 'Thunder')
+  audio_schema = AudioSchema(many=True)
+  output = audio_schema.dump(audio_list)
+  return jsonify({'audio': output})
+
+@app.route('/hardrain', methods=['GET'])
+def hardrain():
+  audio_list = Audio.query.filter_by(type = 'Hard rain')
+  audio_schema = AudioSchema(many=True)
+  output = audio_schema.dump(audio_list)
+  return jsonify({'audio': output})
+
+@app.route('/hybrid', methods=['GET'])
+def hybrid():
+  audio_list = Audio.query.filter_by(type = 'Hybrid rain')
+  audio_schema = AudioSchema(many=True)
+  output = audio_schema.dump(audio_list)
+  return jsonify({'audio': output})
+
+@app.route('/audio/<path:filename>')
+def play(filename):
+  return send_from_directory(app.config['UPLOAD_FOLDER'], filename, conditional=True)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+  app.run(debug=True)
