@@ -185,8 +185,7 @@ export const Radio = (props) => {
         focus:outline-none 
         transition duration-200 
         bg-no-repeat bg-center bg-contain 
-        float-left 
-        mr-2 
+        flex
         cursor-pointer"
     />
   );

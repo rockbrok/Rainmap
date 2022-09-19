@@ -1,43 +1,42 @@
 {
-  "nav": {
-    "home": "Home",
+  "footer": {
     "about": "About",
-    "map": "Map",
-    "login": "Login"
-  },
-  "account": {
-    "account": "Account",
-    "upload": "Upload audio",
-    "sign-out": "Sign out"
-  },
-  "home": {
-    "card1": {
-      "title": "Benefits of listening to rain",
-      "first": "Improved sleep quality",
-      "second": "Lowers blood pressure",
-      "third": "Increases confidence and self-esteem",
-      "fourth": "Provides stress relief"
-    },
-    "card2": {
-      "title": "Rain sound of the day",
-      "subtitle": "Here is the most popular rain sound for today"
-    },
-    "card3": "Light rain sounds",
-    "card4": "Thunder sounds"
+    "upload": "Upload"
   },
   "about": {
-    "about": "About Us"
+    "about": "About",
+    "p1": "The goal of this project was to create an interactive user interface that allows users to share and listen to audio from around the world.",
+    "p2": "Rainmap was created with React.js, Leafleft.js, i18next, TailwindCSS, Geocoding API, Axios, Python Flask, Flask SQLAlchemy, Flask Marshmallow, among other hooks and packages."
   },
-  "login": {
-    "login": "Login",
-    "register": "Register",
-    "email": "Your email",
-    "password": "Your password",
-    "password-repeat": "Repeat password",
-    "agree": "I agree with the",
-    "terms": "terms and conditions",
-    "create": "Create an account",
-    "sign-in": "Sign in"
+  "upload": {
+    "upload": "Upload",
+    "upload-audio": "Upload audio",
+    "contribute": "Contribute to the Rainmap database",
+    "file": "Choose a file",
+    "no-file": "No file chosen",
+    "country": "Country",
+    "country-select": "Select a country",
+    "region": "Region",
+    "region-enter": "Enter a region",
+    "rain": "Rain type",
+    "rain-select": "Select a type",
+    "success": "Upload successful!",
+    "thanks": "Thank you for contributing"
   },
-  "footer": "Made with"
+  "duration": {
+    "second": "sec",
+    "minute": "min",
+    "hour": "hr"
+  },
+  "type": {
+    "type": "Type",
+    "soft": "Soft",
+    "hard": "Hard",
+    "hybrid": "Hybrid",
+    "thunder": "Thunder",
+    "all": "All",
+    "soft-rain": "Soft rain",
+    "hard-rain": "Hard rain",
+    "hybrid-rain": "Hybrid rain"
+  }
 }

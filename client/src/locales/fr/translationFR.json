@@ -1,43 +1,42 @@
 {
-  "nav": {
-    "home": "Maison",
+  "footer": {
     "about": "Au sujet de",
-    "map": "Carte",
-    "login": "Login"
-  },
-  "account": {
-    "account": "Compte",
-    "upload": "Télécharger de l'audio",
-    "sign-out": "Se déconnecter"
-  },
-  "home": {
-    "card1": {
-      "title": "Avantages d'écouter la pluie",
-      "first": "Amélioration de la qualité du sommeil",
-      "second": "Lowers blood pressure",
-      "third": "Abaisse la tension artérielle",
-      "fourth": "Fournit un soulagement du stress"
-    },
-    "card2": {
-      "title": "Bruit de pluie du jour",
-      "subtitle": "Voici le son de pluie le plus populaire pour aujourd'hui"
-    },
-    "card3": "Légers bruits de pluie",
-    "card4": "Bruits de tonnerre"
+    "upload": "Télécharger"
   },
   "about": {
-    "about": "À propos de nous"
+    "about": "Au sujet de",
+    "p1": "L'objectif de ce projet était de créer une interface utilisateur interactive qui permet aux utilisateurs de partager et d'écouter de l'audio du monde entier.",
+    "p2": "Rainmap a été créé avec React.js, Leafleft.js, i18next, TailwindCSS, Geocoding API, Axios, Python Flask, Flask SQLAlchemy, Flask Marshmallow, entre autres hooks et packages."
   },
-  "login": {
-    "login": "Login",
-    "register": "Enregistrer",
-    "email": "Votre e-mail",
-    "password": "Votre mot de passe",
-    "password-repeat": "Répéter le mot de passe",
-    "agree": "Je suis d'accord avec le",
-    "terms": "termes et conditions",
-    "create": "Créer un compte",
-    "sign-in": "S'identifier"
+  "upload": {
+    "upload": "Télécharger",
+    "upload-audio": "Télécharger de l'audio",
+    "contribute": "Contribuer à la base de données Rainmap",
+    "file": "Choisissez un fichier",
+    "no-file": "Aucun fichier choisi",
+    "country": "Pays",
+    "country-select": "Choisissez un pays",
+    "region": "Région",
+    "region-enter": "Entrez une région",
+    "rain": "Type de pluie",
+    "rain-select": "Sélectionnez un type",
+    "success": "Téléchargement réussi!",
+    "thanks": "Merci d'avoir contribué"
   },
-  "footer": "Fabriqué avec"
+  "duration": {
+    "second": "s",
+    "minute": "min",
+    "hour": "h"
+  },
+  "type": {
+    "type": "Genre",
+    "soft": "Douce",
+    "hard": "Torrentielle",
+    "hybrid": "Hybride",
+    "thunder": "Tonnerre",
+    "all": "Tous",
+    "soft-rain": "Pluie douce",
+    "hard-rain": "Pluie torrentielle",
+    "hybrid-rain": "Pluie hybride"
+  }
 }

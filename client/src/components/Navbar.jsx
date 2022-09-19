@@ -6,34 +6,23 @@ import i18n, { t } from "i18next";
 const changeLanguage = (language) => i18n.changeLanguage(language);
 
 export default function Navbar() {
-  const [showAccount, setShowAccount] = useState(false);
+  // const [showAccount, setShowAccount] = useState(false);
   const [showLanguage, setShowLanguage] = useState(false);
 
   return (
-    <nav className="flex w-full px-2 py-2.5 mb-6 dark:bg-gray-900">
-      <div className="container flex flex-row flex-wrap justify-between items-center mx-auto">
+    <nav className="flex w-full px-8 py-6 dark:bg-gray-900">
+      <div className="flex flex-row flex-wrap justify-between items-center w-full">
         <Link to="/" className="flex items-center">
           <span
             className="flex items-center self-center text-xl whitespace-nowrap dark:text-white tracking-widest"
             style={{ fontFamily: "Roboto" }}
           >
             <span className="material-symbols-outlined">water_drop</span>
-            &nbsp;Rainmap
+            <span className="ml-1.5">Rainmap</span>
           </span>
         </Link>
 
-        <ul className="flex items-center justify-center p-4 flex-row space-x-8 md:text-sm md:font-medium">
-          <Link to="/upload" className="h-6 w-6">
-            <span
-              className="material-symbols-outlined cursor-pointer select-none"
-              style={{
-                filter:
-                  "invert(25%) sepia(10%) saturate(1382%) hue-rotate(177deg) brightness(99%) contrast(84%)",
-              }}
-            >
-              file_upload
-            </span>
-          </Link>
+        <ul className="flex items-center justify-center flex-row space-x-8 md:text-sm md:font-medium">
           {/* <Dropdown
             setShow={setShowAccount}
             show={showAccount}
@@ -151,7 +140,7 @@ const Button = (props) => (
     id="language-btn"
     onClickCapture={() => window.location.reload(false)}
     style={{ fontFamily: "Roboto", fontWeight: "400" }}
-    className="text-gray-700 md:hover:text-gray-900 dark:text-gray-400 md:dark:hover:text-white dark:hover:text-white"
+    className="text-gray-600 hover:text-gray-700 dark:text-gray-400 md:dark:hover:text-white dark:hover:text-white"
     disabled={props.disabled}
   >
     {props.text}

@@ -1,43 +1,42 @@
 {
-  "nav": {
-    "home": "Casa",
+  "footer": {
     "about": "Sobre",
-    "map": "Mapa",
-    "login": "Conecte-se"
-  },
-  "account": {
-    "account": "Conta",
-    "upload": "Carregar áudio",
-    "sign-out": "Sair"
-  },
-  "home": {
-    "card1": {
-      "title": "Benefícios de ouvir a chuva",
-      "first": "Melhor qualidade do sono",
-      "second": "Reduz a pressão arterial",
-      "third": "Aumenta a confiança e a autoestima",
-      "fourth": "Proporciona alívio do estresse"
-    },
-    "card2": {
-      "title": "Som de chuva do dia",
-      "subtitle": "Aqui está o som de chuva mais popular para hoje"
-    },
-    "card3": "Sons de chuva leve",
-    "card4": "Sons de trovão"
+    "upload": "Carregar"
   },
   "about": {
-    "about": "Sobre nós"
+    "about": "Sobre",
+    "p1": "O objetivo deste projeto era criar uma interface de usuário interativa que permitisse aos usuários compartilhar e ouvir áudio de todo o mundo.",
+    "p2": "Rainmap foi criado com React.js, Leafleft.js, i18next, TailwindCSS, Geocoding API, Axios, Python Flask, Flask SQLAlchemy, Flask Marshmallow, entre outros hooks e pacotes."
   },
-  "login": {
-    "login": "Conecte-se",
-    "register": "Registrar",
-    "email": "Seu email",
-    "password": "Sua senha",
-    "password-repeat": "Repita a senha",
-    "agree": "Eu concordo com o",
-    "terms": "termos e condições",
-    "create": "Crie a sua conta aqui",
-    "sign-in": "Entrar"
+  "upload": {
+    "upload": "Carregar",
+    "upload-audio": "Carregar áudio",
+    "contribute": "Contribuir para o banco de dados Rainmap",
+    "file": "Escolha um arquivo",
+    "no-file": "Nenhum arquivo selecionado",
+    "country": "País",
+    "country-select": "Selecione um pais",
+    "region": "Região",
+    "region-enter": "Insira uma região",
+    "rain": "Tipo de chuva",
+    "rain-select": "Selecione um tipo",
+    "success": "Carregamento bem-sucedido!",
+    "thanks": "Obrigado por contribuir"
   },
-  "footer": "Feito com"
+  "duration": {
+    "second": "s",
+    "minute": "min",
+    "hour": "h"
+  },
+  "type": {
+    "type": "Tipo",
+    "soft": "Suave",
+    "hard": "Forte",
+    "hybrid": "Híbrida",
+    "thunder": "Trovão",
+    "all": "Tudo",
+    "soft-rain": "Chuva suave",
+    "hard-rain": "Chuva forte",
+    "hybrid-rain": "Chuva híbrida"
+  }
 }

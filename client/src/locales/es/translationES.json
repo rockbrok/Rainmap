@@ -1,43 +1,42 @@
 {
-  "nav": {
-    "home": "Hogar",
+  "footer": {
     "about": "Sobre",
-    "map": "Mapa",
-    "login": "Iniciar sesión"
-  },
-  "account": {
-    "account": "Cuenta",
-    "upload": "Subir audio",
-    "sign-out": "Desconectar"
-  },
-  "home": {
-    "card1": {
-      "title": "Beneficios de escuchar la lluvia",
-      "first": "Mejora de la calidad del sueño",
-      "second": "Disminuye la presión arterial",
-      "third": "Aumenta la confianza y la autoestima.",
-      "fourth": "Proporciona alivio del estrés."
-    },
-    "card2": {
-      "title": "Sonido de lluvia del día.",
-      "subtitle": "Aquí está el sonido de lluvia más popular para hoy."
-    },
-    "card3": "Sonidos de lluvia ligera",
-    "card4": "Sonidos de truenos"
+    "upload": "Subir"
   },
   "about": {
-    "about": "Sobre nosotros"
+    "about": "Sobre",
+    "p1": "El objetivo de este proyecto era crear una interfaz de usuario interactiva que permitiera a los usuarios compartir y escuchar audio de todo el mundo.",
+    "p2": "Rainmap se creó con React.js, Leafleft.js, i18next, TailwindCSS, API de geocodificación, Axios, Python Flask, Flask SQLAlchemy, Flask Marshmallow, entre otros ganchos y paquetes."
   },
-  "login": {
-    "login": "Iniciar sesión",
-    "register": "Registrar",
-    "email": "Tu correo electrónico",
-    "password": "Tu contraseña",
-    "password-repeat": "Repita la contraseña",
-    "agree": "Estoy de acuerdo con el",
-    "terms": "términos y condiciones",
-    "create": "Crea una cuenta",
-    "sign-in": "Iniciar sesión"
+  "upload": {
+    "upload": "Subir",
+    "upload-audio": "Subir audio",
+    "contribute": "Contribuir a la base de datos de Rainmap",
+    "file": "Escoge un archivo",
+    "no-file": "Ningún archivo elegido",
+    "country": "País",
+    "country-select": "Seleccione un país",
+    "region": "Región",
+    "region-enter": "Introduce una región",
+    "rain": "Tipo de lluvia",
+    "rain-select": "Seleccione un tipo",
+    "success": "¡Subida exitosa!",
+    "thanks": "Gracias por contribuir"
   },
-  "footer": "Hecho con"
+  "duration": {
+    "second": "s",
+    "minute": "min",
+    "hour": "h"
+  },
+  "type": {
+    "type": "Tipo",
+    "soft": "Suave",
+    "hard": "Fuerte",
+    "hybrid": "Híbrido",
+    "thunder": "Trueno",
+    "all": "Todo",
+    "soft-rain": "Lluvia suave",
+    "hard-rain": "Lluvia fuerte",
+    "hybrid-rain": "Lluvia híbrida"
+  }
 }

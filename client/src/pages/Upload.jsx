@@ -1,17 +1,14 @@
+import axios from "axios";
 import { Label, Input, Button, Select } from "../components/Form";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+import { t } from "i18next";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
 // components
 import { Page, Section, Container, H2 } from "../App";
 
 export default function Upload() {
-  const {
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { handleSubmit } = useForm();
 
   const [type, setType] = useState("");
   const [city, setCity] = useState("");
@@ -50,7 +47,7 @@ export default function Upload() {
   }, [success]);
 
   return (
-    <Page title={`Rainmap | Upload`}>
+    <Page title={`Rainmap |  ${t("upload.upload")}`}>
       {success ? (
         <Section>
           <Container>
@@ -67,40 +64,40 @@ export default function Upload() {
                 >
                   check_circle
                 </span>
-                <span className="mt-2">Upload successful!</span>
-                <span>Thank you for contributing</span>
+                <span className="mt-2">{t("upload.success")}</span>
+                <span>{t("upload.thanks")}</span>
               </div>
             </div>
           </Container>
         </Section>
       ) : (
         <Section>
-          <H2 name="Upload audio" margin="-4px" />
-          <p>Contribute to the Rainmap database</p>
+          <H2 name={t("upload.upload-audio")} margin="-4px" />
+          <p> {t("upload.contribute")}</p>
           <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
             <Container>
-              <Label for="file" name="Choose a file" />
+              <Label for="file" name={t("upload.file")} />
               <Input
                 id="file"
                 type="file"
-                placeholder="No file chosen"
+                placeholder={t("upload.no-file")}
                 required
                 change={(e) => setSelectFile(e.target.files[0])}
               />
               <div className="grid grid-cols-2 gap-x-4 gap-y-3">
-                <Label for="country" name="Country" />
-                <Label for="city" name="Region / City" />
+                <Label for="country" name={t("upload.country")} />
+                <Label for="city" name={t("upload.region")} />
                 <SelectCountry region={region} setRegion={setRegion} />
                 <Input
                   id="city"
                   type="text"
-                  placeholder="Enter city"
+                  placeholder={t("upload.region-enter")}
                   required
                   value={city}
                   change={(e) => setCity(e.target.value)}
                 />
               </div>
-              <Label for="rain" name="Rain type" />
+              <Label for="rain" name={t("upload.rain")} />
               <Select
                 id="rain"
                 value={type}
@@ -110,12 +107,12 @@ export default function Upload() {
                 required
               >
                 <option value="" disabled hidden selected>
-                  Select a type
+                  {t("upload.rain-select")}
                 </option>
-                <option>Hard rain</option>
-                <option>Soft rain</option>
-                <option>Hybrid rain</option>
-                <option>Thunder</option>
+                <option value="Soft rain">{t("type.soft-rain")}</option>
+                <option value="Hard rain">{t("type.hard-rain")}</option>
+                <option value="Hybrid rain">{t("type.hybrid-rain")}</option>
+                <option value="Thunder">{t("type.thunder")}</option>
               </Select>
               <div className="mt-6">
                 <Button name="Submit" />
@@ -136,7 +133,7 @@ const SelectCountry = ({ region, setRegion }) => (
     required
   >
     <option value="" disabled hidden selected>
-      Select a country
+      {t("upload.country-select")}
     </option>
     <option value="Afghanistan">Afghanistan</option>
     <option value="Albania">Albania</option>

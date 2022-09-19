@@ -2,7 +2,9 @@
 
 body {
   margin: 0;
-  width: 100vw;
+  margin-right: 32px;
+  margin-left: 32px;
+  width: calc(100vw - 64px);
   overflow-x: hidden;
   height: 100vh;
   font-family: Roboto;
