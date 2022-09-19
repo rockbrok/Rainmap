@@ -11,7 +11,7 @@ import { Page } from "../App";
 export default function Home() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [type, setType] = useState("http://glennp.pythonanywhere.com/all");
+  const [type, setType] = useState("https://glennp.pythonanywhere.com/all");
 
   function onChangeValue(event) {
     setType(event.target.value);
@@ -89,7 +89,7 @@ const Cartogram = ({
         ) : (
           <>
             {data.audio.map((data) => {
-              let URL = "http://glennp.pythonanywhere.com/audio/";
+              let URL = "https://glennp.pythonanywhere.com/audio/";
               return (
                 <div key={data.id}>
                   <Marker
@@ -179,37 +179,37 @@ const Form = ({ onChangeValue, type }) => (
     <div className="flex flex-col gap-3">
       <Input
         id="light"
-        value="http://glennp.pythonanywhere.com/softrain"
+        value="https://glennp.pythonanywhere.com/softrain"
         name={`Light`}
-        checked={type === "http://glennp.pythonanywhere.com/softrain"}
+        checked={type === "https://glennp.pythonanywhere.com/softrain"}
         radiogroup="rain"
       />
       <Input
         id="hard"
-        value="http://glennp.pythonanywhere.com/hardrain"
+        value="https://glennp.pythonanywhere.com/hardrain"
         name={`Hard`}
-        checked={type === "http://glennp.pythonanywhere.com/hardrain"}
+        checked={type === "https://glennp.pythonanywhere.com/hardrain"}
         radiogroup="rain"
       />
       <Input
         id="hybrid"
-        value="http://glennp.pythonanywhere.com/hybrid"
+        value="https://glennp.pythonanywhere.com/hybrid"
         name={`Hybrid`}
-        checked={type === "http://glennp.pythonanywhere.com/hybrid"}
+        checked={type === "https://glennp.pythonanywhere.com/hybrid"}
         radiogroup="rain"
       />
       <Input
         id="thunder"
-        value="http://glennp.pythonanywhere.com/thunder"
+        value="https://glennp.pythonanywhere.com/thunder"
         name={`Thunder`}
-        checked={type === "http://glennp.pythonanywhere.com/thunder"}
+        checked={type === "https://glennp.pythonanywhere.com/thunder"}
         radiogroup="rain"
       />
       <Input
         id="all"
-        value="http://glennp.pythonanywhere.com/all"
+        value="https://glennp.pythonanywhere.com/all"
         name={`All`}
-        checked={type === "http://glennp.pythonanywhere.com/all"}
+        checked={type === "https://glennp.pythonanywhere.com/all"}
         radiogroup="rain"
       />
     </div>

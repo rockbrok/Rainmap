@@ -39,7 +39,7 @@ export default function Upload() {
     formData.append("latitude", response.data.data[0].latitude);
     formData.append("type", type);
 
-    await axios.post("http://glennp.pythonanywhere.com/audio", formData);
+    await axios.post("https://glennp.pythonanywhere.com/audio", formData);
     setSuccess(true);
   };
 
