@@ -25,7 +25,7 @@ export default function Navbar() {
         <ul className="flex items-center justify-center p-4 flex-row space-x-8 md:text-sm md:font-medium">
           <Link to="/upload" className="h-6 w-6">
             <span
-              class="material-symbols-outlined cursor-pointer select-none"
+              className="material-symbols-outlined cursor-pointer select-none"
               style={{
                 filter:
                   "invert(25%) sepia(10%) saturate(1382%) hue-rotate(177deg) brightness(99%) contrast(84%)",

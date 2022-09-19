@@ -11,7 +11,7 @@ import { Page } from "../App";
 export default function Home() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [type, setType] = useState("/allaudio");
+  const [type, setType] = useState("http://glennp.pythonanywhere.com/all");
 
   function onChangeValue(event) {
     setType(event.target.value);
@@ -62,24 +62,6 @@ const Cartogram = ({
   data,
   loading,
 }) => {
-  // const LeafIcon = Leaflet.Icon.extend({
-  //   options: {},
-  // });
-
-  // const blueIcon = new LeafIcon({
-  //   iconUrl:
-  //     "https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|abcdef&chf=a,s,ee00FFFF",
-  //   // iconAnchor: null,
-  //   // popupAnchor: null,
-  //   // shadowUrl: null,
-  //   // shadowSize: null,
-  //   // shadowAnchor: null,
-  //   // iconSize: [32, 32],
-  //   // iconAnchor: [32, 64],
-  // });
-
-  // const [icon, setIcon] = useState(blueIcon);
-
   return (
     <div className="col-span-6 flex flex-col rounded border border-gray-200">
       <MapContainer
@@ -107,7 +89,7 @@ const Cartogram = ({
         ) : (
           <>
             {data.audio.map((data) => {
-              let URL = "http://localhost:5000/audio/";
+              let URL = "http://glennp.pythonanywhere.com/audio/";
               return (
                 <div key={data.id}>
                   <Marker
@@ -197,37 +179,37 @@ const Form = ({ onChangeValue, type }) => (
     <div className="flex flex-col gap-3">
       <Input
         id="light"
-        value="/softrain"
+        value="http://glennp.pythonanywhere.com/softrain"
         name={`Light`}
-        checked={type === "/softrain"}
+        checked={type === "http://glennp.pythonanywhere.com/softrain"}
         radiogroup="rain"
       />
       <Input
         id="hard"
-        value="/hardrain"
+        value="http://glennp.pythonanywhere.com/hardrain"
         name={`Hard`}
-        checked={type === "/hardrain"}
+        checked={type === "http://glennp.pythonanywhere.com/hardrain"}
         radiogroup="rain"
       />
       <Input
         id="hybrid"
-        value="/hybrid"
+        value="http://glennp.pythonanywhere.com/hybrid"
         name={`Hybrid`}
-        checked={type === "/hybrid"}
+        checked={type === "http://glennp.pythonanywhere.com/hybrid"}
         radiogroup="rain"
       />
       <Input
         id="thunder"
-        value="/thunder"
+        value="http://glennp.pythonanywhere.com/thunder"
         name={`Thunder`}
-        checked={type === "/thunder"}
+        checked={type === "http://glennp.pythonanywhere.com/thunder"}
         radiogroup="rain"
       />
       <Input
         id="all"
-        value="/allaudio"
+        value="http://glennp.pythonanywhere.com/all"
         name={`All`}
-        checked={type === "/allaudio"}
+        checked={type === "http://glennp.pythonanywhere.com/all"}
         radiogroup="rain"
       />
     </div>
