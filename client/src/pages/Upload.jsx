@@ -21,7 +21,7 @@ export default function Upload() {
 
   const onSubmit = async () => {
     const URL =
-      "http://api.positionstack.com/v1/forward?access_key=" +
+      "https://cors-anywhere.herokuapp.com/http://api.positionstack.com/v1/forward?access_key=" +
       process.env.REACT_APP_POSITION_STACK_API_KEY +
       "&query=" +
       city +
