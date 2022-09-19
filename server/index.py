@@ -9,6 +9,7 @@ from werkzeug.utils import secure_filename
 import os
 
 app = Flask(__name__)
+app.config["DEBUG"] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'top secret key'
 app.config['UPLOAD_FOLDER'] = 'static/files/'
@@ -105,6 +106,10 @@ def allowed_file(filename):
 #   else:
 #     return "User doesn't exist"
 
+@app.route('/')
+def home():
+  return 'Hello World!'
+
 @app.route('/audio', methods=['GET', 'POST'])
 def audio():
   if request.method == 'POST':
@@ -129,7 +134,7 @@ def audio():
       return 'Upload successful'
     return 'Error'
 
-@app.route('/allaudio', methods=['GET'])
+@app.route('/all', methods=['GET'])
 def allaudio():
   audio_list = Audio.query.all()
   audio_schema = AudioSchema(many=True)
@@ -169,4 +174,4 @@ def play(filename):
   return send_from_directory(app.config['UPLOAD_FOLDER'], filename, conditional=True)
 
 if __name__ == '__main__':
-  app.run(debug=True)
+  app.run()
