@@ -36,7 +36,7 @@ export default function Upload() {
     formData.append("latitude", response.data.data[0].latitude);
     formData.append("type", type);
 
-    await axios.post("https://glennp.pythonanywhere.com/audio", formData);
+    await axios.post(process.env.REACT_APP_SERVER + "/audio", formData);
     setSuccess(true);
   };
 
@@ -83,6 +83,11 @@ export default function Upload() {
                 placeholder={t("upload.no-file")}
                 required
                 change={(e) => setSelectFile(e.target.files[0])}
+                style={{
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
               />
               <div className="grid grid-cols-2 gap-x-4 gap-y-3">
                 <Label for="country" name={t("upload.country")} />
@@ -95,6 +100,11 @@ export default function Upload() {
                   required
                   value={city}
                   change={(e) => setCity(e.target.value)}
+                  style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
                 />
               </div>
               <Label for="rain" name={t("upload.rain")} />
@@ -105,6 +115,11 @@ export default function Upload() {
                   setType(e.target.value);
                 }}
                 required
+                style={{
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
               >
                 <option value="" disabled hidden selected>
                   {t("upload.rain-select")}
@@ -131,6 +146,12 @@ const SelectCountry = ({ region, setRegion }) => (
     value={region}
     change={(e) => setRegion(e.target.value)}
     required
+    style={{
+      whiteSpace: "nowrap",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+      paddingRight: "30px",
+    }}
   >
     <option value="" disabled hidden selected>
       {t("upload.country-select")}

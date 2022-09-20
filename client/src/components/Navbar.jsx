@@ -8,27 +8,48 @@ const changeLanguage = (language) => i18n.changeLanguage(language);
 export default function Navbar() {
   // const [showAccount, setShowAccount] = useState(false);
   const [showLanguage, setShowLanguage] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
   return (
-    <nav className="flex w-full px-8 py-6 dark:bg-gray-900">
+    <nav className="flex w-full px-4 md:px-8 py-6 dark:bg-gray-900">
       <div className="flex flex-row flex-wrap justify-between items-center w-full">
         <Link to="/" className="flex items-center">
           <span
             className="flex items-center self-center text-xl whitespace-nowrap dark:text-white tracking-widest"
             style={{ fontFamily: "Roboto" }}
           >
-            <span className="material-symbols-outlined">water_drop</span>
-            <span className="ml-1.5">Rainmap</span>
+            <div className="hidden md:flex">
+              <span
+                className="material-symbols-outlined"
+                id="play"
+                style={{
+                  filter:
+                    "invert(25%) sepia(10%) saturate(1382%) hue-rotate(177deg) brightness(99%) contrast(84%)",
+                }}
+              >
+                water_drop
+              </span>
+            </div>
+            <span className="ml-1.5 font-normal text-[#333]">Rainmap</span>
           </span>
         </Link>
 
-        <ul className="flex items-center justify-center flex-row space-x-8 md:text-sm md:font-medium">
+        <ul className="relative flex items-center justify-center flex-row space-x-4 md:text-sm md:font-medium">
           {/* <Dropdown
             setShow={setShowAccount}
             show={showAccount}
             icon="account_circle"
             component={<Account />}
           /> */}
+          <div className="flex md:hidden">
+            <Dropdown
+              setShow={setShowMenu}
+              show={showMenu}
+              icon="menu"
+              iconStyle="22px"
+              component={<Menu />}
+            />
+          </div>
           <Dropdown
             setShow={setShowLanguage}
             show={showLanguage}
@@ -47,21 +68,38 @@ const Dropdown = (props) => (
       props.setShow(false);
     }}
   >
-    <div className="relative flex flex-col items-center">
-      <span
-        className="material-symbols-outlined cursor-pointer select-none"
-        id="user"
-        style={{
-          filter:
-            "invert(25%) sepia(10%) saturate(1382%) hue-rotate(177deg) brightness(99%) contrast(84%)",
-        }}
-        onClick={() => props.setShow(!props.show)}
+    <div className="relative flex flex-col items-end">
+      <div
+        className={
+          "flex flex-col items-center justify-center rounded-full w-9 h-9 md:w-6 md:h-6 mr-[-6px] md:mr-0 " +
+          (props.show === true && "bg-gray-200 md:bg-transparent")
+        }
       >
-        {props.icon}
-      </span>
+        <span
+          className="material-symbols-outlined cursor-pointer select-none"
+          id="play"
+          style={{
+            filter:
+              "invert(25%) sepia(10%) saturate(1382%) hue-rotate(177deg) brightness(99%) contrast(84%)",
+            fontSize: props.iconStyle,
+          }}
+          onClick={() => props.setShow(!props.show)}
+        >
+          {props.icon}
+        </span>
+      </div>
       {props.show ? props.component : null}
     </div>
   </OutsideClickHandler>
+);
+
+const Menu = () => (
+  <div className="absolute top-12 right-[-46px] z-30 flex flex-col w-28 px-6 py-2.5 bg-white rounded border border-gray-200 shadow-md">
+    <Path path="/upload" name={t("footer.upload")} />
+    <hr className="my-3 border-gray-300" />
+    <Path path="/about" name={t("footer.about")} />
+    <div className="mb-3" />
+  </div>
 );
 
 const Account = () => (
@@ -105,7 +143,7 @@ const Path = (props) => (
 );
 
 const Languages = () => (
-  <div className="absolute top-10 z-30 gap-4 flex flex-col w-28 px-6 pt-2.5 pb-6 bg-white rounded border border-gray-200 shadow-md">
+  <div className="absolute top-12 z-30 gap-4 flex flex-col w-28 px-6 pt-2.5 pb-6 bg-white rounded border border-gray-200 shadow-md">
     <Button
       text="Español"
       click={() => changeLanguage("es")}

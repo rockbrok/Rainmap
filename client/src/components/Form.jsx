@@ -69,6 +69,7 @@ export const Select = (props) => {
       value={props.value}
       required={props.required}
       onChange={props.change}
+      style={props.style}
       className="form-control block
         w-full
         px-3

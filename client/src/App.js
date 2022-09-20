@@ -33,7 +33,7 @@ export const Page = (props) => (
     <Helmet>
       <title>{props.title}</title>
     </Helmet>
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen mx-[16px] sm:mx-[16px] md:mx-[32px]">
       <Navbar />
       <section className="flex flex-col grow justify-center">
         {props.children}
@@ -52,7 +52,7 @@ export const Section = (props) => (
 );
 
 export const Container = (props) => (
-  <div className="flex flex-col rounded border border-gray-200 p-6 w-[448px] gap-3">
+  <div className="flex flex-col md:rounded md:border md:border-gray-200 p-6 w-full md:w-[448px] gap-3">
     {props.children}
   </div>
 );
