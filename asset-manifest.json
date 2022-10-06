@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/rainmap/static/css/main.cf1dcfbd.css",
+    "main.js": "/rainmap/static/js/main.2a5257fa.js",
+    "index.html": "/rainmap/index.html",
+    "main.cf1dcfbd.css.map": "/rainmap/static/css/main.cf1dcfbd.css.map",
+    "main.2a5257fa.js.map": "/rainmap/static/js/main.2a5257fa.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cf1dcfbd.css",
+    "static/js/main.2a5257fa.js"
+  ]
+}
